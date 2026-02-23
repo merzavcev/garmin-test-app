@@ -2,26 +2,27 @@
 
 ## Требования
 
-- Установленный Connect IQ SDK.
-- Файл ключа разработчика для подписи `.prg`.
+- Connect IQ SDK 8.4.1+ (путь вида `~/Library/Application Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-8.4.1-YYYY-MM-DD-<hash>`).
+- Файл ключа разработчика (`*.der`) для подписи `.prg`.
 - Наличие в проекте входных артефактов:
   - `manifest.xml`
-  - папка `source/`
-  - папка `resources/`
+  - `monkey.jungle`
+  - папки `source/`, `resources/` (включая `resources/drawables/launcher_icon.png`)
 
 ## Переменные окружения
 
 Перед сборкой экспортируйте переменные:
 
 ```bash
-export CIQ_SDK_HOME="/path/to/connectiq-sdk"
-export CIQ_DEVELOPER_KEY="/path/to/developer_key.der"
-# необязательно, target по умолчанию для скриптов
+export CIQ_SDK_HOME="$HOME/Library/Application Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-8.4.1-2026-02-03-e9f77eeaa"
+export CIQ_DEVELOPER_KEY="$HOME/.garmin/developer_key.der"
+# Необязательно: можно переопределять target для build.sh
 export CIQ_TARGET="vivoactive6"
 ```
 
-- `CIQ_SDK_HOME` обязателен всегда.
-- `CIQ_DEVELOPER_KEY` обязателен для подписанной сборки.
+- `CIQ_SDK_HOME` нужен всегда.
+- `CIQ_DEVELOPER_KEY` обязателен — начиная с SDK 8.4.1 компилятор не умеет выпускать unsigned сборки.
+- `JAVA_HOME=/opt/homebrew/opt/openjdk` (или иной JDK 17+) требуется, если в системе несколько JVM.
 
 ## Сборка `.prg`
 
@@ -43,50 +44,41 @@ export CIQ_TARGET="vivoactive6"
 ./scripts/build.sh --target vivoactive6 --output build/MyApp.prg
 ```
 
-Unsigned-сборка (например, для локальной проверки):
+> Флаг `--unsigned` оставлен в скрипте для совместимости, но SDK 8.4.1 всё равно потребует ключ.
 
-```bash
-./scripts/build.sh --target vivoactive6 --unsigned
-```
+## Запуск в симуляторе
 
-## Упаковка/подпись отдельным шагом
+1. Откройте `ConnectIQ.app` (`$CIQ_SDK_HOME/bin/ConnectIQ.app`) и через Device Manager добавьте устройство vívoactive 6 (раздел **Window → Device Manager → Add Device**).
+2. Убедитесь, что включён пункт **Settings → Allow Remote Connections**.
+3. Из корня проекта выполните:
 
-Скрипт упаковки создаёт артефакт в `dist/` из уже собранного `.prg`:
+   ```bash
+   "$CIQ_SDK_HOME/bin/monkeydo" build/HelloGarmin.prg vivoactive6
+   ```
 
-```bash
-./scripts/package.sh --target vivoactive6
-```
-
-Если нужно сначала пересобрать, затем упаковать:
-
-```bash
-./scripts/package.sh --target vivoactive6 --rebuild
-```
+   После этого приложение моментально появится в окне выбранного устройства.
 
 ## Установка на часы
 
-Доступный способ зависит от вашей среды и устройства:
+### Garmin Express (Developer Apps)
 
-1. **Garmin Express (USB):**
-   - Подключите часы к компьютеру.
-   - Откройте устройство как накопитель (или через Garmin Express).
-   - Скопируйте `.prg` в папку приложений Connect IQ на устройстве.
+1. Подключите vívoactive 6 к Mac и дождитесь, пока Garmin Express отобразит устройство.
+2. В разделе **Connect IQ | Приложения** нажмите иконку меню (три полоски) → **Приложения разработчика…**.
+3. Нажмите **Добавить**, укажите `build/HelloGarmin.prg`, затем **Установить**. Express скопирует файл в `GARMIN/APPS` и безопасно отключит часы.
 
-2. **Connect IQ / Mobile (если поддерживается каналом разработки):**
-   - Используйте стандартный процесс установки через Connect IQ экосистему для dev-сборок.
+### Android File Transfer (прямой MTP-доступ)
 
-3. **Side-load (ручная установка):**
-   - Подключите устройство по USB.
-   - Скопируйте `build/HelloGarmin.prg` (или файл из `dist/`) в каталог приложений устройства (обычно внутри `GARMIN/APPS`).
-
-> Точный путь может отличаться у разных моделей/прошивок. Ориентируйтесь на структуру каталогов вашего устройства.
+1. Установите [Android File Transfer](https://www.android.com/filetransfer/), запустите приложение.
+2. На часах в `Settings → System → USB Mode` выберите `MTP`.
+3. Подключите кабель: в окне приложения откроется содержимое часов. Перейдите в `GARMIN/APPS/` и перетащите `build/HelloGarmin.prg`.
+4. Закройте AFT и отключите кабель — новая сборка появится в списке приложений.
 
 ## Проверка запуска приложения
 
 1. Отключите часы от компьютера безопасно.
 2. На часах откройте список приложений/виджетов.
 3. Найдите установленное приложение и запустите его.
-4. Убедитесь, что приложение открывается без ошибки и отображает ожидаемый экран.
+4. Убедитесь, что приложение открывается без ошибок и отображает `Hello Garmin`.
 # Garmin Monkey C Hello App
 
 Минимальный пример Connect IQ `watch-app` для vívoactive 6, который выводит `Hello Garmin` на экран.
