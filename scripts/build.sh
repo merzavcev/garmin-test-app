@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MANIFEST="${ROOT_DIR}/manifest.xml"
+JUNGLE="${ROOT_DIR}/monkey.jungle"
 SOURCE_DIR="${ROOT_DIR}/source"
 RESOURCES_DIR="${ROOT_DIR}/resources"
 TARGET="${CIQ_TARGET:-vivoactive6}"
@@ -74,7 +75,7 @@ done
 
 mkdir -p "$(dirname "${OUTPUT}")"
 
-cmd=("${MONKEYC_BIN}" -f "${MANIFEST}" -o "${OUTPUT}" -d "${TARGET}")
+cmd=("${MONKEYC_BIN}" -f "${JUNGLE}" -o "${OUTPUT}" -d "${TARGET}")
 
 if [[ "${UNSIGNED}" -eq 0 ]]; then
   : "${CIQ_DEVELOPER_KEY:?CIQ_DEVELOPER_KEY is not set. Please export path to developer key.}"

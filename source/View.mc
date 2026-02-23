@@ -1,5 +1,5 @@
-using Toybox.Graphics;
-using Toybox.WatchUi;
+import Toybox.Graphics;
+import Toybox.WatchUi;
 
 class HelloGarminView extends WatchUi.View {
 
