@@ -16,9 +16,12 @@
 ```bash
 export CIQ_SDK_HOME="/path/to/connectiq-sdk"
 export CIQ_DEVELOPER_KEY="/path/to/developer_key.der"
+# необязательно, target по умолчанию для скриптов
+export CIQ_TARGET="vivoactive6"
 ```
 
-Скрипты проверяют наличие этих переменных и существование файлов.
+- `CIQ_SDK_HOME` обязателен всегда.
+- `CIQ_DEVELOPER_KEY` обязателен для подписанной сборки.
 
 ## Сборка `.prg`
 
@@ -40,15 +43,25 @@ export CIQ_DEVELOPER_KEY="/path/to/developer_key.der"
 ./scripts/build.sh --target vivoactive6 --output build/MyApp.prg
 ```
 
+Unsigned-сборка (например, для локальной проверки):
+
+```bash
+./scripts/build.sh --target vivoactive6 --unsigned
+```
+
 ## Упаковка/подпись отдельным шагом
 
-Если нужен отдельный шаг упаковки/подписи, используйте:
+Скрипт упаковки создаёт артефакт в `dist/` из уже собранного `.prg`:
 
 ```bash
 ./scripts/package.sh --target vivoactive6
 ```
 
-`package.sh` — это обёртка над `build.sh`, которая выполняет сборку и подпись с теми же аргументами.
+Если нужно сначала пересобрать, затем упаковать:
+
+```bash
+./scripts/package.sh --target vivoactive6 --rebuild
+```
 
 ## Установка на часы
 
@@ -64,7 +77,7 @@ export CIQ_DEVELOPER_KEY="/path/to/developer_key.der"
 
 3. **Side-load (ручная установка):**
    - Подключите устройство по USB.
-   - Скопируйте `build/HelloGarmin.prg` в каталог приложений устройства (обычно внутри `GARMIN/APPS`).
+   - Скопируйте `build/HelloGarmin.prg` (или файл из `dist/`) в каталог приложений устройства (обычно внутри `GARMIN/APPS`).
 
 > Точный путь может отличаться у разных моделей/прошивок. Ориентируйтесь на структуру каталогов вашего устройства.
 
