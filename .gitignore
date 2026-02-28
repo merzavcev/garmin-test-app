@@ -1,2 +1,5 @@
 build/
 .DS_Store
+source/SecretsConfig.mc
+bin/mir/config/
+bin/mir/source/SecretsConfig.mir

@@ -6,6 +6,8 @@ MANIFEST="${ROOT_DIR}/manifest.xml"
 JUNGLE="${ROOT_DIR}/monkey.jungle"
 SOURCE_DIR="${ROOT_DIR}/source"
 RESOURCES_DIR="${ROOT_DIR}/resources"
+SECRETS_TEMPLATE="${ROOT_DIR}/config/SecretsConfig.template.txt"
+SECRETS_FILE="${SOURCE_DIR}/SecretsConfig.mc"
 TARGET="${CIQ_TARGET:-vivoactive6}"
 OUTPUT="${ROOT_DIR}/build/HelloGarmin.prg"
 
@@ -72,6 +74,16 @@ for required_path in "${MANIFEST}" "${SOURCE_DIR}" "${RESOURCES_DIR}"; do
     exit 1
   fi
 done
+
+if [[ ! -f "${SECRETS_FILE}" ]]; then
+  if [[ ! -f "${SECRETS_TEMPLATE}" ]]; then
+    echo "Secrets config template not found: ${SECRETS_TEMPLATE}" >&2
+    exit 1
+  fi
+  cp "${SECRETS_TEMPLATE}" "${SECRETS_FILE}"
+  echo "Created local secrets config: ${SECRETS_FILE}" >&2
+  echo "Please fill real values in ${SECRETS_FILE} for production use." >&2
+fi
 
 mkdir -p "$(dirname "${OUTPUT}")"
 
