@@ -1,0 +1,104 @@
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [WatchUi,2,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 4; @symbol_classdef = [TimerDelegate,4,6,19]; @symbol_extends<0> = [WatchUi,4,28,35]; @symbol_extends<1> = [InputDelegate,4,36,49]; ]
+class TimerDelegate extends WatchUi.InputDelegate {
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 4; ]
+    <init> {
+    }
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 4; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 6; @position = 16; @symbol_vardef = [_view,6,16,21]; @symbol_type<0> = [TimerView,6,25,34]; ]
+    private
+    var _view as TimerView;
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 8; @symbol_functiondef = [initialize,8,13,23]; @symbol_param<0> = [view,8,24,28]; @symbol_param<0>_type<0> = [TimerView,8,32,41]; ]
+    function initialize(view as TimerView) as Void {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_8_43_11_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 9 8 ]
+        symbol [ InputDelegate %tmp.2 9 8 21 ];
+        %tmp.2 = getv ? :InputDelegate;
+        symbol [ initialize %tmp.3 9 22 32 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 10 8 ]
+        %tmp.4 = lgetv %view;
+        symbol [ view %tmp.4 10 16 20 ];
+        symbol [ _view ? 10 8 13 ];
+        putv self :_view %tmp.4;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_8_43_11_4_stop:
+    }
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 13; @symbol_functiondef = [onTap,13,13,18]; @symbol_param<0> = [evt,13,19,22]; @symbol_param<0>_type<0> = [WatchUi,13,26,33]; @symbol_param<0>_type<1> = [ClickEvent,13,34,44]; @symbol_return<0> = [Boolean,13,49,56]; ]
+    function onTap(evt as WatchUi.ClickEvent) as Boolean {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_13_57_17_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 14 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_13_57_17_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_13_57_17_4_stop" ]
+        %coords.1 = local;
+        symbol [ coords %coords.1 14 12 18 ];
+        %tmp.1 = lgetv %evt;
+        symbol [ evt %tmp.1 14 21 24 ];
+        symbol [ getCoordinates %tmp.2 14 25 39 ];
+        %tmp.2 = getv function %tmp.1 :getCoordinates;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %coords.1 %tmp.3;
+        symbol [ coords %coords.1 14 12 18 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 15 8 ]
+        symbol [ _view %tmp.5 15 8 13 ];
+        %tmp.5 = getv ? :_view;
+        symbol [ handleTap %tmp.6 15 14 23 ];
+        %tmp.6 = getv function %tmp.5 :handleTap;
+        %tmp.7 = lgetv %coords.1;
+        symbol [ coords %tmp.7 15 24 30 ];
+        %tmp.8 = 0;
+        %tmp.9 = agetv %tmp.7 %tmp.8;
+        %tmp.10 = lgetv %coords.1;
+        symbol [ coords %tmp.10 15 35 41 ];
+        %tmp.11 = 1;
+        %tmp.12 = agetv %tmp.10 %tmp.11;
+        invoke %tmp.5 %tmp.6(%tmp.9, %tmp.12);
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 16 8 ]
+        %tmp.13 = true;
+        ret %tmp.13;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_13_57_17_4_stop:
+    }
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 19; @symbol_functiondef = [onKey,19,13,18]; @symbol_param<0> = [evt,19,19,22]; @symbol_param<0>_type<0> = [WatchUi,19,26,33]; @symbol_param<0>_type<1> = [KeyEvent,19,34,42]; @symbol_return<0> = [Boolean,19,47,54]; ]
+    function onKey(evt as WatchUi.KeyEvent) as Boolean {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_19_55_25_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 20 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_20_8_23_8_if_stmt:
+        %tmp.1 = lgetv %evt;
+        symbol [ evt %tmp.1 20 12 15 ];
+        symbol [ getKey %tmp.2 20 16 22 ];
+        %tmp.2 = getv function %tmp.1 :getKey;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        symbol [ WatchUi %tmp.4 20 28 35 ];
+        %tmp.4 = getm $.Toybox.WatchUi;
+        symbol [ KEY_ENTER %tmp.5 20 36 45 ];
+        %tmp.5 = getv %tmp.4 :KEY_ENTER;
+        %tmp.6 = eq %tmp.3 %tmp.5;
+        bf %tmp.6 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_20_8_23_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_20_8_23_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_20_47_23_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 21 12 ]
+        symbol [ _view %tmp.8 21 12 17 ];
+        %tmp.8 = getv ? :_view;
+        symbol [ handleMainKey %tmp.9 21 18 31 ];
+        %tmp.9 = getv function %tmp.8 :handleMainKey;
+        invoke %tmp.8 %tmp.9();
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 22 12 ]
+        %tmp.10 = true;
+        ret %tmp.10;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_20_47_23_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_20_8_23_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_20_8_23_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc" 24 8 ]
+        %tmp.11 = false;
+        ret %tmp.11;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_InputDelegate_mc_19_55_25_4_stop:
+    }
+}
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/InputDelegate.mc"; @line = 1; ]
+<init> {
+}

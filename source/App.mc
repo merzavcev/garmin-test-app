@@ -2,7 +2,7 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-class HelloGarminApp extends Application.AppBase {
+class TimerApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
@@ -15,10 +15,12 @@ class HelloGarminApp extends Application.AppBase {
     }
 
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new HelloGarminView() ];
+        var view = new TimerView();
+        var delegate = new TimerDelegate(view);
+        return [view, delegate];
     }
 }
 
-function getApp() as HelloGarminApp {
-    return Application.getApp() as HelloGarminApp;
+function getApp() as TimerApp {
+    return Application.getApp() as TimerApp;
 }
