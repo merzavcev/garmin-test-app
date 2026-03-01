@@ -2,1419 +2,1693 @@
 import Toybox.Graphics;
 [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Lang,2,14,18]; ]
 import Toybox.Lang;
-[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [System,3,14,20]; ]
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [Communications,3,14,28]; ]
+import Toybox.Communications;
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 4; @symbol_importdef<0> = [Toybox,4,7,13]; @symbol_importdef<1> = [PersistedContent,4,14,30]; ]
+import Toybox.PersistedContent;
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 5; @symbol_importdef<0> = [Toybox,5,7,13]; @symbol_importdef<1> = [System,5,14,20]; ]
 import Toybox.System;
-[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 4; @symbol_importdef<0> = [Toybox,4,7,13]; @symbol_importdef<1> = [Timer,4,14,19]; ]
-import Toybox.Timer;
-[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 5; @symbol_importdef<0> = [Toybox,5,7,13]; @symbol_importdef<1> = [WatchUi,5,14,21]; ]
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 6; @symbol_importdef<0> = [Toybox,6,7,13]; @symbol_importdef<1> = [Time,6,14,18]; ]
+import Toybox.Time;
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 7; @symbol_importdef<0> = [Toybox,7,7,13]; @symbol_importdef<1> = [WatchUi,7,14,21]; ]
 import Toybox.WatchUi;
-[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 8; ]
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 10; ]
 enum {
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 9; @position = 4; @symbol_enumdec = [STATE_IDLE,9,4,14]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 11; @position = 4; @symbol_enumdec = [STATE_IDLE,11,4,14]; ]
     STATE_IDLE = 0,
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 10; @position = 4; @symbol_enumdec = [STATE_RUNNING,10,4,17]; ]
-    STATE_RUNNING = 1,
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 11; @position = 4; @symbol_enumdec = [STATE_PAUSED,11,4,16]; ]
-    STATE_PAUSED = 2,
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 12; @position = 4; @symbol_enumdec = [STATE_STOPPED,12,4,17]; ]
-    STATE_STOPPED = 3
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 12; @position = 4; @symbol_enumdec = [STATE_SENDING,12,4,17]; ]
+    STATE_SENDING = 1,
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 13; @position = 4; @symbol_enumdec = [STATE_SUCCESS,13,4,17]; ]
+    STATE_SUCCESS = 2,
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 14; @position = 4; @symbol_enumdec = [STATE_ERROR,14,4,15]; ]
+    STATE_ERROR = 3
 }
-[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 15; @symbol_classdef = [TimerView,15,6,15]; @symbol_extends<0> = [WatchUi,15,24,31]; @symbol_extends<1> = [View,15,32,36]; ]
+[ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 17; @symbol_classdef = [TimerView,17,6,15]; @symbol_extends<0> = [WatchUi,17,24,31]; @symbol_extends<1> = [View,17,32,36]; ]
 class TimerView extends WatchUi.View {
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 15; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 17; ]
     <init> {
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 17 16 ]
-        symbol [ STATE_IDLE %tmp.2 17 37 47 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 19 16 ]
+        symbol [ STATE_IDLE %tmp.2 19 37 47 ];
         %tmp.2 = getv ? :STATE_IDLE;
         putv self :_state %tmp.2;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 27 16 ]
-        %tmp.3 = newa 4;
-        %tmp.4 = 0;
-        %tmp.5 = dup %tmp.3;
-        %tmp.6 = aputv %tmp.5 0 %tmp.4;
-        %tmp.7 = 0;
-        %tmp.8 = dup %tmp.6;
-        %tmp.9 = aputv %tmp.8 1 %tmp.7;
-        %tmp.10 = 0;
-        %tmp.11 = dup %tmp.9;
-        %tmp.12 = aputv %tmp.11 2 %tmp.10;
-        %tmp.13 = 0;
-        %tmp.14 = dup %tmp.12;
-        %tmp.15 = aputv %tmp.14 3 %tmp.13;
-        putv self :_btnSingle %tmp.15;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 28 16 ]
-        %tmp.16 = newa 4;
-        %tmp.17 = 0;
-        %tmp.18 = dup %tmp.16;
-        %tmp.19 = aputv %tmp.18 0 %tmp.17;
-        %tmp.20 = 0;
-        %tmp.21 = dup %tmp.19;
-        %tmp.22 = aputv %tmp.21 1 %tmp.20;
-        %tmp.23 = 0;
-        %tmp.24 = dup %tmp.22;
-        %tmp.25 = aputv %tmp.24 2 %tmp.23;
-        %tmp.26 = 0;
-        %tmp.27 = dup %tmp.25;
-        %tmp.28 = aputv %tmp.27 3 %tmp.26;
-        putv self :_btnTop %tmp.28;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 29 16 ]
-        %tmp.29 = newa 4;
-        %tmp.30 = 0;
-        %tmp.31 = dup %tmp.29;
-        %tmp.32 = aputv %tmp.31 0 %tmp.30;
-        %tmp.33 = 0;
-        %tmp.34 = dup %tmp.32;
-        %tmp.35 = aputv %tmp.34 1 %tmp.33;
-        %tmp.36 = 0;
-        %tmp.37 = dup %tmp.35;
-        %tmp.38 = aputv %tmp.37 2 %tmp.36;
-        %tmp.39 = 0;
-        %tmp.40 = dup %tmp.38;
-        %tmp.41 = aputv %tmp.40 3 %tmp.39;
-        putv self :_btnBot %tmp.41;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 30 16 ]
+        %tmp.3 = newa 0;
+        putv self :_btnAreas %tmp.3;
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 15; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 17; ]
     static
     <init> {
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 17; @position = 16; @symbol_vardef = [_state,17,16,22]; @symbol_type<0> = [Number,17,28,34]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 19; @position = 16; @symbol_vardef = [_state,19,16,22]; @symbol_type<0> = [Number,19,28,34]; ]
     private
     var _state as Number;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 18; @position = 16; @symbol_vardef = [_elapsed,18,16,24]; @symbol_type<0> = [Number,18,28,34]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 20; @position = 16; @symbol_vardef = [_statusTitle,20,16,28]; @symbol_type<0> = [String,20,32,38]; ]
     private
-    var _elapsed as Number = 0;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 19; @position = 16; @symbol_vardef = [_startMs,19,16,24]; @symbol_type<0> = [Number,19,28,34]; ]
+    var _statusTitle as String = "Ready";
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 21; @position = 16; @symbol_vardef = [_statusDetail,21,16,29]; @symbol_type<0> = [String,21,33,39]; ]
     private
-    var _startMs as Number = 0;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 20; @position = 16; @symbol_vardef = [_hwTimer,20,16,24]; @symbol_type<0> = [Timer,20,28,33]; @symbol_type<1> = [Timer,20,34,39]; ]
+    var _statusDetail as String = "";
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 22; @position = 16; @symbol_vardef = [_selectedIndex,22,16,30]; @symbol_type<0> = [Number,22,34,40]; ]
     private
-    var _hwTimer as Timer.Timer;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 22; @position = 16; @symbol_vardef = [_screenW,22,16,24]; @symbol_type<0> = [Number,22,28,34]; ]
+    var _selectedIndex as Number = 0;
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 23; @position = 16; @symbol_vardef = [_activePresetId,23,16,31]; @symbol_type<0> = [String,23,35,41]; ]
+    private
+    var _activePresetId as String or Null = null;
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 24; @position = 16; @symbol_vardef = [_presets,24,16,24]; @symbol_type<0> = [Array,24,28,33]; ]
+    private
+    var _presets as Array;
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 26; @position = 16; @symbol_vardef = [_screenW,26,16,24]; @symbol_type<0> = [Number,26,28,34]; ]
     private
     var _screenW as Number = 360;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 23; @position = 16; @symbol_vardef = [_screenH,23,16,24]; @symbol_type<0> = [Number,23,28,34]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 27; @position = 16; @symbol_vardef = [_screenH,27,16,24]; @symbol_type<0> = [Number,27,28,34]; ]
     private
     var _screenH as Number = 360;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 27; @position = 16; @symbol_vardef = [_btnSingle,27,16,26]; @symbol_type<0> = [Array,27,30,35]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 30; @position = 16; @symbol_vardef = [_btnAreas,30,16,25]; @symbol_type<0> = [Array,30,29,34]; ]
     private
-    var _btnSingle as Array;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 28; @position = 16; @symbol_vardef = [_btnTop,28,16,23]; @symbol_type<0> = [Array,28,30,35]; ]
-    private
-    var _btnTop as Array;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 29; @position = 16; @symbol_vardef = [_btnBot,29,16,23]; @symbol_type<0> = [Array,29,30,35]; ]
-    private
-    var _btnBot as Array;
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 31; @symbol_functiondef = [initialize,31,13,23]; ]
+    var _btnAreas as Array;
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 32; @symbol_functiondef = [initialize,32,13,23]; ]
     function initialize() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_31_26_34_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 32 8 ]
-        symbol [ View %tmp.2 32 8 12 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_32_26_35_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 33 8 ]
+        symbol [ View %tmp.2 33 8 12 ];
         %tmp.2 = getv ? :View;
-        symbol [ initialize %tmp.3 32 13 23 ];
+        symbol [ initialize %tmp.3 33 13 23 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 33 8 ]
-        symbol [ Timer %tmp.6 33 23 28 ];
-        %tmp.6 = getm $.Toybox.Timer;
-        symbol [ Timer %tmp.7 33 29 34 ];
-        %tmp.7 = getv function ? %tmp.6 :Timer;
-        %tmp.4 = newc %tmp.7 ();
-        symbol [ _hwTimer ? 33 8 16 ];
-        putv self :_hwTimer %tmp.4;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_31_26_34_4_stop:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 34 8 ]
+        %tmp.4 = self;
+        symbol [ _defaultPresets %tmp.5 34 19 34 ];
+        %tmp.5 = getv function %tmp.4 :_defaultPresets;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        symbol [ _presets ? 34 8 16 ];
+        putv self :_presets %tmp.6;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_32_26_35_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 36; @symbol_functiondef = [onLayout,36,13,21]; @symbol_param<0> = [dc,36,22,24]; @symbol_param<0>_type<0> = [Dc,36,28,30]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 37; @symbol_functiondef = [onLayout,37,13,21]; @symbol_param<0> = [dc,37,22,24]; @symbol_param<0>_type<0> = [Dc,37,28,30]; ]
     function onLayout(dc as Dc) as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_36_40_40_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 37 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_37_40_41_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 38 8 ]
         %tmp.1 = lgetv %dc;
-        symbol [ dc %tmp.1 37 19 21 ];
-        symbol [ getWidth %tmp.2 37 22 30 ];
+        symbol [ dc %tmp.1 38 19 21 ];
+        symbol [ getWidth %tmp.2 38 22 30 ];
         %tmp.2 = getv function %tmp.1 :getWidth;
         %tmp.3 = invoke %tmp.1 %tmp.2();
-        symbol [ _screenW ? 37 8 16 ];
+        symbol [ _screenW ? 38 8 16 ];
         putv self :_screenW %tmp.3;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 38 8 ]
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 39 8 ]
         %tmp.4 = lgetv %dc;
-        symbol [ dc %tmp.4 38 19 21 ];
-        symbol [ getHeight %tmp.5 38 22 31 ];
+        symbol [ dc %tmp.4 39 19 21 ];
+        symbol [ getHeight %tmp.5 39 22 31 ];
         %tmp.5 = getv function %tmp.4 :getHeight;
         %tmp.6 = invoke %tmp.4 %tmp.5();
-        symbol [ _screenH ? 38 8 16 ];
+        symbol [ _screenH ? 39 8 16 ];
         putv self :_screenH %tmp.6;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 39 8 ]
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 40 8 ]
         %tmp.7 = self;
-        symbol [ _buildLayout %tmp.8 39 8 20 ];
+        symbol [ _buildLayout %tmp.8 40 8 20 ];
         %tmp.8 = getv function %tmp.7 :_buildLayout;
         invoke %tmp.7 %tmp.8();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_36_40_40_4_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_37_40_41_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 42; @symbol_functiondef = [_buildLayout,42,21,33]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 43; @symbol_functiondef = [_buildLayout,43,21,33]; ]
     private
     function _buildLayout() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 45 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop" ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 44 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_stop" ]
         %btnH.1 = local;
-        symbol [ btnH %btnH.1 45 12 16 ];
+        symbol [ btnH %btnH.1 44 12 16 ];
         %tmp.1 = 46;
         lputv %btnH.1 %tmp.1;
-        symbol [ btnH %btnH.1 45 12 16 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 46 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop" ]
+        symbol [ btnH %btnH.1 44 12 16 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 45 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_stop" ]
         %btnW.2 = local;
-        symbol [ btnW %btnW.2 46 12 16 ];
-        %tmp.2 = 180;
+        symbol [ btnW %btnW.2 45 12 16 ];
+        %tmp.2 = 250;
         lputv %btnW.2 %tmp.2;
-        symbol [ btnW %btnW.2 46 12 16 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 47 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop" ]
+        symbol [ btnW %btnW.2 45 12 16 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 46 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_stop" ]
         %btnX.3 = local;
-        symbol [ btnX %btnX.3 47 12 16 ];
-        symbol [ _screenW %tmp.4 47 21 29 ];
+        symbol [ btnX %btnX.3 46 12 16 ];
+        symbol [ _screenW %tmp.4 46 21 29 ];
         %tmp.4 = getv ? :_screenW;
         %tmp.5 = lgetv %btnW.2;
-        symbol [ btnW %tmp.5 47 32 36 ];
+        symbol [ btnW %tmp.5 46 32 36 ];
         %tmp.6 = sub %tmp.4 %tmp.5;
         %tmp.7 = 2;
         %tmp.8 = div %tmp.6 %tmp.7;
         lputv %btnX.3 %tmp.8;
-        symbol [ btnX %btnX.3 47 12 16 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 48 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop" ]
+        symbol [ btnX %btnX.3 46 12 16 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 47 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_stop" ]
         %gap.4 = local;
-        symbol [ gap %gap.4 48 12 15 ];
-        %tmp.9 = 9;
+        symbol [ gap %gap.4 47 12 15 ];
+        %tmp.9 = 8;
         lputv %gap.4 %tmp.9;
-        symbol [ gap %gap.4 48 12 15 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 49 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop" ]
-        %bot.5 = local;
-        symbol [ bot %bot.5 49 12 15 ];
-        %tmp.10 = 22;
-        lputv %bot.5 %tmp.10;
-        symbol [ bot %bot.5 49 12 15 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 51 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop" ]
-        %topY.6 = local;
-        symbol [ topY %topY.6 51 12 16 ];
-        symbol [ _screenH %tmp.12 51 20 28 ];
-        %tmp.12 = getv ? :_screenH;
-        %tmp.13 = lgetv %btnH.1;
-        symbol [ btnH %tmp.13 51 31 35 ];
-        %tmp.14 = 2;
-        %tmp.15 = mul %tmp.13 %tmp.14;
-        %tmp.16 = sub %tmp.12 %tmp.15;
-        %tmp.17 = lgetv %gap.4;
-        symbol [ gap %tmp.17 51 42 45 ];
-        %tmp.18 = sub %tmp.16 %tmp.17;
-        %tmp.19 = lgetv %bot.5;
-        symbol [ bot %tmp.19 51 48 51 ];
-        %tmp.20 = sub %tmp.18 %tmp.19;
-        lputv %topY.6 %tmp.20;
-        symbol [ topY %topY.6 51 12 16 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 52 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop" ]
-        %botY.7 = local;
-        symbol [ botY %botY.7 52 12 16 ];
-        %tmp.21 = lgetv %topY.6;
-        symbol [ topY %tmp.21 52 20 24 ];
-        %tmp.22 = lgetv %btnH.1;
-        symbol [ btnH %tmp.22 52 27 31 ];
-        %tmp.23 = add %tmp.21 %tmp.22;
-        %tmp.24 = lgetv %gap.4;
-        symbol [ gap %tmp.24 52 34 37 ];
-        %tmp.25 = add %tmp.23 %tmp.24;
-        lputv %botY.7 %tmp.25;
-        symbol [ botY %botY.7 52 12 16 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 53 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop" ]
-        %midY.8 = local;
-        symbol [ midY %midY.8 53 12 16 ];
-        %tmp.26 = lgetv %topY.6;
-        symbol [ topY %tmp.26 53 20 24 ];
-        %tmp.27 = lgetv %btnH.1;
-        symbol [ btnH %tmp.27 53 28 32 ];
-        %tmp.28 = lgetv %gap.4;
-        symbol [ gap %tmp.28 53 35 38 ];
-        %tmp.29 = add %tmp.27 %tmp.28;
-        %tmp.30 = 2;
-        %tmp.31 = div %tmp.29 %tmp.30;
-        %tmp.32 = add %tmp.26 %tmp.31;
-        lputv %midY.8 %tmp.32;
-        symbol [ midY %midY.8 53 12 16 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 55 8 ]
-        %tmp.33 = newa 4;
-        %tmp.34 = lgetv %btnX.3;
-        symbol [ btnX %tmp.34 55 22 26 ];
-        %tmp.35 = dup %tmp.33;
-        %tmp.36 = aputv %tmp.35 0 %tmp.34;
-        %tmp.37 = lgetv %midY.8;
-        symbol [ midY %tmp.37 55 28 32 ];
-        %tmp.38 = dup %tmp.36;
-        %tmp.39 = aputv %tmp.38 1 %tmp.37;
-        %tmp.40 = lgetv %btnW.2;
-        symbol [ btnW %tmp.40 55 34 38 ];
-        %tmp.41 = dup %tmp.39;
-        %tmp.42 = aputv %tmp.41 2 %tmp.40;
-        %tmp.43 = lgetv %btnH.1;
-        symbol [ btnH %tmp.43 55 40 44 ];
-        %tmp.44 = dup %tmp.42;
-        %tmp.45 = aputv %tmp.44 3 %tmp.43;
-        symbol [ _btnSingle ? 55 8 18 ];
-        putv self :_btnSingle %tmp.45;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 56 8 ]
-        %tmp.46 = newa 4;
-        %tmp.47 = lgetv %btnX.3;
-        symbol [ btnX %tmp.47 56 22 26 ];
-        %tmp.48 = dup %tmp.46;
-        %tmp.49 = aputv %tmp.48 0 %tmp.47;
-        %tmp.50 = lgetv %topY.6;
-        symbol [ topY %tmp.50 56 28 32 ];
-        %tmp.51 = dup %tmp.49;
-        %tmp.52 = aputv %tmp.51 1 %tmp.50;
-        %tmp.53 = lgetv %btnW.2;
-        symbol [ btnW %tmp.53 56 34 38 ];
-        %tmp.54 = dup %tmp.52;
-        %tmp.55 = aputv %tmp.54 2 %tmp.53;
-        %tmp.56 = lgetv %btnH.1;
-        symbol [ btnH %tmp.56 56 40 44 ];
+        symbol [ gap %gap.4 47 12 15 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 48 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_stop" ]
+        %startY.5 = local;
+        symbol [ startY %startY.5 48 12 18 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 50 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_50_8_57_8_if_stmt:
+        symbol [ _presets %tmp.11 50 12 20 ];
+        %tmp.11 = getv ? :_presets;
+        symbol [ size %tmp.12 50 21 25 ];
+        %tmp.12 = getv function %tmp.11 :size;
+        %tmp.13 = invoke %tmp.11 %tmp.12();
+        %tmp.14 = 1;
+        %tmp.15 = eq %tmp.13 %tmp.14;
+        bf %tmp.15 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_50_8_57_8_if_else_false;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_50_8_57_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_50_34_53_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 52 12 ]
+        symbol [ _screenH %tmp.17 52 22 30 ];
+        %tmp.17 = getv ? :_screenH;
+        %tmp.18 = lgetv %btnH.1;
+        symbol [ btnH %tmp.18 52 33 37 ];
+        %tmp.19 = sub %tmp.17 %tmp.18;
+        %tmp.20 = 2;
+        %tmp.21 = div %tmp.19 %tmp.20;
+        lputv %startY.5 %tmp.21;
+        symbol [ startY %startY.5 52 12 18 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_50_34_53_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_50_8_57_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_50_8_57_8_if_else_false:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_53_15_57_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 54 12 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_53_15_57_8_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_53_15_57_8_stop" ]
+        %bot.6 = local;
+        symbol [ bot %bot.6 54 16 19 ];
+        %tmp.22 = 22;
+        lputv %bot.6 %tmp.22;
+        symbol [ bot %bot.6 54 16 19 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 55 12 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_53_15_57_8_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_53_15_57_8_stop" ]
+        %totalHeight.7 = local;
+        symbol [ totalHeight %totalHeight.7 55 16 27 ];
+        %tmp.23 = lgetv %btnH.1;
+        symbol [ btnH %tmp.23 55 30 34 ];
+        symbol [ _presets %tmp.25 55 37 45 ];
+        %tmp.25 = getv ? :_presets;
+        symbol [ size %tmp.26 55 46 50 ];
+        %tmp.26 = getv function %tmp.25 :size;
+        %tmp.27 = invoke %tmp.25 %tmp.26();
+        %tmp.28 = mul %tmp.23 %tmp.27;
+        %tmp.29 = lgetv %gap.4;
+        symbol [ gap %tmp.29 55 55 58 ];
+        symbol [ _presets %tmp.31 55 62 70 ];
+        %tmp.31 = getv ? :_presets;
+        symbol [ size %tmp.32 55 71 75 ];
+        %tmp.32 = getv function %tmp.31 :size;
+        %tmp.33 = invoke %tmp.31 %tmp.32();
+        %tmp.34 = 1;
+        %tmp.35 = sub %tmp.33 %tmp.34;
+        %tmp.36 = mul %tmp.29 %tmp.35;
+        %tmp.37 = add %tmp.28 %tmp.36;
+        lputv %totalHeight.7 %tmp.37;
+        symbol [ totalHeight %totalHeight.7 55 16 27 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 56 12 ]
+        symbol [ _screenH %tmp.39 56 21 29 ];
+        %tmp.39 = getv ? :_screenH;
+        %tmp.40 = lgetv %totalHeight.7;
+        symbol [ totalHeight %tmp.40 56 32 43 ];
+        %tmp.41 = sub %tmp.39 %tmp.40;
+        %tmp.42 = lgetv %bot.6;
+        symbol [ bot %tmp.42 56 46 49 ];
+        %tmp.43 = sub %tmp.41 %tmp.42;
+        lputv %startY.5 %tmp.43;
+        symbol [ startY %startY.5 56 12 18 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_53_15_57_8_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_50_8_57_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 59 8 ]
+        %tmp.44 = newa 0;
+        symbol [ _btnAreas ? 59 8 17 ];
+        putv self :_btnAreas %tmp.44;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 60 8 ]
+        for @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_test @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_incr @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_init:
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_begin" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_end" ]
+        %i.8 = local;
+        symbol [ i %i.8 60 17 18 ];
+        %tmp.45 = 0;
+        lputv %i.8 %tmp.45;
+        symbol [ i %i.8 60 17 18 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_test:
+        %tmp.46 = lgetv %i.8;
+        symbol [ i %tmp.46 60 24 25 ];
+        symbol [ _presets %tmp.48 60 28 36 ];
+        %tmp.48 = getv ? :_presets;
+        symbol [ size %tmp.49 60 37 41 ];
+        %tmp.49 = getv function %tmp.48 :size;
+        %tmp.50 = invoke %tmp.48 %tmp.49();
+        %tmp.51 = lt %tmp.46 %tmp.50;
+        bf %tmp.51 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_begin:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_53_62_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 61 12 ]
+        symbol [ _btnAreas %tmp.53 61 12 21 ];
+        %tmp.53 = getv ? :_btnAreas;
+        symbol [ add %tmp.54 61 22 25 ];
+        %tmp.54 = getv function %tmp.53 :add;
+        %tmp.55 = newa 4;
+        %tmp.56 = lgetv %btnX.3;
+        symbol [ btnX %tmp.56 61 27 31 ];
         %tmp.57 = dup %tmp.55;
-        %tmp.58 = aputv %tmp.57 3 %tmp.56;
-        symbol [ _btnTop ? 56 8 15 ];
-        putv self :_btnTop %tmp.58;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 57 8 ]
-        %tmp.59 = newa 4;
-        %tmp.60 = lgetv %btnX.3;
-        symbol [ btnX %tmp.60 57 22 26 ];
-        %tmp.61 = dup %tmp.59;
-        %tmp.62 = aputv %tmp.61 0 %tmp.60;
-        %tmp.63 = lgetv %botY.7;
-        symbol [ botY %tmp.63 57 28 32 ];
-        %tmp.64 = dup %tmp.62;
-        %tmp.65 = aputv %tmp.64 1 %tmp.63;
-        %tmp.66 = lgetv %btnW.2;
-        symbol [ btnW %tmp.66 57 34 38 ];
-        %tmp.67 = dup %tmp.65;
-        %tmp.68 = aputv %tmp.67 2 %tmp.66;
-        %tmp.69 = lgetv %btnH.1;
-        symbol [ btnH %tmp.69 57 40 44 ];
-        %tmp.70 = dup %tmp.68;
-        %tmp.71 = aputv %tmp.70 3 %tmp.69;
-        symbol [ _btnBot ? 57 8 15 ];
-        putv self :_btnBot %tmp.71;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_42_44_58_4_stop:
+        %tmp.58 = aputv %tmp.57 0 %tmp.56;
+        %tmp.59 = lgetv %startY.5;
+        symbol [ startY %tmp.59 61 33 39 ];
+        %tmp.60 = lgetv %i.8;
+        symbol [ i %tmp.60 61 42 43 ];
+        %tmp.61 = lgetv %btnH.1;
+        symbol [ btnH %tmp.61 61 47 51 ];
+        %tmp.62 = lgetv %gap.4;
+        symbol [ gap %tmp.62 61 54 57 ];
+        %tmp.63 = add %tmp.61 %tmp.62;
+        %tmp.64 = mul %tmp.60 %tmp.63;
+        %tmp.65 = add %tmp.59 %tmp.64;
+        %tmp.66 = dup %tmp.58;
+        %tmp.67 = aputv %tmp.66 1 %tmp.65;
+        %tmp.68 = lgetv %btnW.2;
+        symbol [ btnW %tmp.68 61 60 64 ];
+        %tmp.69 = dup %tmp.67;
+        %tmp.70 = aputv %tmp.69 2 %tmp.68;
+        %tmp.71 = lgetv %btnH.1;
+        symbol [ btnH %tmp.71 61 66 70 ];
+        %tmp.72 = dup %tmp.70;
+        %tmp.73 = aputv %tmp.72 3 %tmp.71;
+        invoke %tmp.53 %tmp.54(%tmp.73);
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_53_62_8_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_incr:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 60 ]
+        %tmp.74 = lgetv %i.8;
+        symbol [ i %tmp.74 60 45 46 ];
+        %tmp.75 = 1;
+        %tmp.76 = add %tmp.74 %tmp.75;
+        lputv %i.8 %tmp.76;
+        symbol [ i %i.8 60 45 46 ];
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_test;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_60_8_62_8_for_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_43_44_63_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 60; @symbol_functiondef = [onShow,60,13,19]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 65; @symbol_functiondef = [onShow,65,13,19]; ]
     function onShow() as Void {
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 63; @symbol_functiondef = [onUpdate,63,13,21]; @symbol_param<0> = [dc,63,22,24]; @symbol_param<0>_type<0> = [Dc,63,28,30]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 68; @symbol_functiondef = [onUpdate,68,13,21]; @symbol_param<0> = [dc,68,22,24]; @symbol_param<0>_type<0> = [Dc,68,28,30]; ]
     function onUpdate(dc as Dc) as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_63_40_108_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 64 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_68_40_95_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 69 8 ]
         %tmp.1 = lgetv %dc;
-        symbol [ dc %tmp.1 64 8 10 ];
-        symbol [ setColor %tmp.2 64 11 19 ];
+        symbol [ dc %tmp.1 69 8 10 ];
+        symbol [ setColor %tmp.2 69 11 19 ];
         %tmp.2 = getv function %tmp.1 :setColor;
-        symbol [ Graphics %tmp.3 64 20 28 ];
+        symbol [ Graphics %tmp.3 69 20 28 ];
         %tmp.3 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.4 64 29 40 ];
+        symbol [ COLOR_WHITE %tmp.4 69 29 40 ];
         %tmp.4 = getv %tmp.3 :COLOR_WHITE;
-        symbol [ Graphics %tmp.5 64 42 50 ];
+        symbol [ Graphics %tmp.5 69 42 50 ];
         %tmp.5 = getm $.Toybox.Graphics;
-        symbol [ COLOR_BLACK %tmp.6 64 51 62 ];
+        symbol [ COLOR_BLACK %tmp.6 69 51 62 ];
         %tmp.6 = getv %tmp.5 :COLOR_BLACK;
         invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 65 8 ]
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 70 8 ]
         %tmp.7 = lgetv %dc;
-        symbol [ dc %tmp.7 65 8 10 ];
-        symbol [ clear %tmp.8 65 11 16 ];
+        symbol [ dc %tmp.7 70 8 10 ];
+        symbol [ clear %tmp.8 70 11 16 ];
         %tmp.8 = getv function %tmp.7 :clear;
         invoke %tmp.7 %tmp.8();
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 67 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_63_40_108_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_63_40_108_4_stop" ]
-        %elapsed.1 = local;
-        symbol [ elapsed %elapsed.1 67 12 19 ];
-        %tmp.9 = self;
-        symbol [ _getCurrentElapsed %tmp.10 67 22 40 ];
-        %tmp.10 = getv function %tmp.9 :_getCurrentElapsed;
-        %tmp.11 = invoke %tmp.9 %tmp.10();
-        lputv %elapsed.1 %tmp.11;
-        symbol [ elapsed %elapsed.1 67 12 19 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 70 8 ]
-        %tmp.12 = lgetv %dc;
-        symbol [ dc %tmp.12 70 8 10 ];
-        symbol [ setColor %tmp.13 70 11 19 ];
-        %tmp.13 = getv function %tmp.12 :setColor;
-        symbol [ Graphics %tmp.14 70 20 28 ];
-        %tmp.14 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.15 70 29 40 ];
-        %tmp.15 = getv %tmp.14 :COLOR_WHITE;
-        symbol [ Graphics %tmp.16 70 42 50 ];
-        %tmp.16 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.17 70 51 68 ];
-        %tmp.17 = getv %tmp.16 :COLOR_TRANSPARENT;
-        invoke %tmp.12 %tmp.13(%tmp.15, %tmp.17);
 [ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 71 8 ]
-        %tmp.18 = lgetv %dc;
-        symbol [ dc %tmp.18 71 8 10 ];
-        symbol [ drawText %tmp.19 71 11 19 ];
-        %tmp.19 = getv function %tmp.18 :drawText;
-        symbol [ _screenW %tmp.21 72 12 20 ];
-        %tmp.21 = getv ? :_screenW;
-        %tmp.22 = 2;
-        %tmp.23 = div %tmp.21 %tmp.22;
-        symbol [ _screenH %tmp.25 73 12 20 ];
-        %tmp.25 = getv ? :_screenH;
-        %tmp.26 = 2;
-        %tmp.27 = div %tmp.25 %tmp.26;
-        %tmp.28 = 40;
-        %tmp.29 = sub %tmp.27 %tmp.28;
-        symbol [ Graphics %tmp.30 74 12 20 ];
-        %tmp.30 = getm $.Toybox.Graphics;
-        symbol [ FONT_NUMBER_HOT %tmp.31 74 21 36 ];
-        %tmp.31 = getv %tmp.30 :FONT_NUMBER_HOT;
-        %tmp.32 = self;
-        symbol [ _formatMajor %tmp.33 75 12 24 ];
-        %tmp.33 = getv function %tmp.32 :_formatMajor;
-        %tmp.34 = lgetv %elapsed.1;
-        symbol [ elapsed %tmp.34 75 25 32 ];
-        %tmp.35 = invoke %tmp.32 %tmp.33(%tmp.34);
-        symbol [ Graphics %tmp.36 76 12 20 ];
-        %tmp.36 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.37 76 21 40 ];
-        %tmp.37 = getv %tmp.36 :TEXT_JUSTIFY_CENTER;
-        symbol [ Graphics %tmp.38 76 43 51 ];
-        %tmp.38 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_VCENTER %tmp.39 76 52 72 ];
-        %tmp.39 = getv %tmp.38 :TEXT_JUSTIFY_VCENTER;
-        %tmp.40 = bitor %tmp.37 %tmp.39;
-        invoke %tmp.18 %tmp.19(%tmp.23, %tmp.29, %tmp.31, %tmp.35, %tmp.40);
+        %tmp.9 = lgetv %dc;
+        symbol [ dc %tmp.9 71 8 10 ];
+        symbol [ setColor %tmp.10 71 11 19 ];
+        %tmp.10 = getv function %tmp.9 :setColor;
+        %tmp.11 = self;
+        symbol [ _statusColor %tmp.12 71 20 32 ];
+        %tmp.12 = getv function %tmp.11 :_statusColor;
+        %tmp.13 = invoke %tmp.11 %tmp.12();
+        symbol [ Graphics %tmp.14 71 36 44 ];
+        %tmp.14 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.15 71 45 62 ];
+        %tmp.15 = getv %tmp.14 :COLOR_TRANSPARENT;
+        invoke %tmp.9 %tmp.10(%tmp.13, %tmp.15);
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 72 8 ]
+        %tmp.16 = lgetv %dc;
+        symbol [ dc %tmp.16 72 8 10 ];
+        symbol [ drawText %tmp.17 72 11 19 ];
+        %tmp.17 = getv function %tmp.16 :drawText;
+        symbol [ _screenW %tmp.19 73 12 20 ];
+        %tmp.19 = getv ? :_screenW;
+        %tmp.20 = 2;
+        %tmp.21 = div %tmp.19 %tmp.20;
+        %tmp.22 = 64;
+        symbol [ Graphics %tmp.23 75 12 20 ];
+        %tmp.23 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.24 75 21 32 ];
+        %tmp.24 = getv %tmp.23 :FONT_MEDIUM;
+        symbol [ _statusTitle %tmp.26 76 12 24 ];
+        %tmp.26 = getv ? :_statusTitle;
+        symbol [ Graphics %tmp.27 77 12 20 ];
+        %tmp.27 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.28 77 21 40 ];
+        %tmp.28 = getv %tmp.27 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.29 77 43 51 ];
+        %tmp.29 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.30 77 52 72 ];
+        %tmp.30 = getv %tmp.29 :TEXT_JUSTIFY_VCENTER;
+        %tmp.31 = bitor %tmp.28 %tmp.30;
+        invoke %tmp.16 %tmp.17(%tmp.21, %tmp.22, %tmp.24, %tmp.26, %tmp.31);
 [ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 80 8 ]
-        %tmp.41 = lgetv %dc;
-        symbol [ dc %tmp.41 80 8 10 ];
-        symbol [ setColor %tmp.42 80 11 19 ];
-        %tmp.42 = getv function %tmp.41 :setColor;
-        symbol [ Graphics %tmp.43 80 20 28 ];
-        %tmp.43 = getm $.Toybox.Graphics;
-        symbol [ COLOR_LT_GRAY %tmp.44 80 29 42 ];
-        %tmp.44 = getv %tmp.43 :COLOR_LT_GRAY;
-        symbol [ Graphics %tmp.45 80 44 52 ];
-        %tmp.45 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.46 80 53 70 ];
-        %tmp.46 = getv %tmp.45 :COLOR_TRANSPARENT;
-        invoke %tmp.41 %tmp.42(%tmp.44, %tmp.46);
+        %tmp.32 = lgetv %dc;
+        symbol [ dc %tmp.32 80 8 10 ];
+        symbol [ setColor %tmp.33 80 11 19 ];
+        %tmp.33 = getv function %tmp.32 :setColor;
+        symbol [ Graphics %tmp.34 80 20 28 ];
+        %tmp.34 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.35 80 29 42 ];
+        %tmp.35 = getv %tmp.34 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.36 80 44 52 ];
+        %tmp.36 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.37 80 53 70 ];
+        %tmp.37 = getv %tmp.36 :COLOR_TRANSPARENT;
+        invoke %tmp.32 %tmp.33(%tmp.35, %tmp.37);
 [ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 81 8 ]
-        %tmp.47 = lgetv %dc;
-        symbol [ dc %tmp.47 81 8 10 ];
-        symbol [ drawText %tmp.48 81 11 19 ];
-        %tmp.48 = getv function %tmp.47 :drawText;
-        symbol [ _screenW %tmp.50 82 12 20 ];
-        %tmp.50 = getv ? :_screenW;
-        %tmp.51 = 2;
-        %tmp.52 = div %tmp.50 %tmp.51;
-        symbol [ _screenH %tmp.54 83 12 20 ];
-        %tmp.54 = getv ? :_screenH;
-        %tmp.55 = 2;
-        %tmp.56 = div %tmp.54 %tmp.55;
-        %tmp.57 = 28;
-        %tmp.58 = add %tmp.56 %tmp.57;
-        symbol [ Graphics %tmp.59 84 12 20 ];
-        %tmp.59 = getm $.Toybox.Graphics;
-        symbol [ FONT_NUMBER_MEDIUM %tmp.60 84 21 39 ];
-        %tmp.60 = getv %tmp.59 :FONT_NUMBER_MEDIUM;
-        %tmp.61 = self;
-        symbol [ _formatMinor %tmp.62 85 12 24 ];
-        %tmp.62 = getv function %tmp.61 :_formatMinor;
-        %tmp.63 = lgetv %elapsed.1;
-        symbol [ elapsed %tmp.63 85 25 32 ];
-        %tmp.64 = invoke %tmp.61 %tmp.62(%tmp.63);
-        symbol [ Graphics %tmp.65 86 12 20 ];
-        %tmp.65 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.66 86 21 40 ];
-        %tmp.66 = getv %tmp.65 :TEXT_JUSTIFY_CENTER;
-        symbol [ Graphics %tmp.67 86 43 51 ];
-        %tmp.67 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_VCENTER %tmp.68 86 52 72 ];
-        %tmp.68 = getv %tmp.67 :TEXT_JUSTIFY_VCENTER;
-        %tmp.69 = bitor %tmp.66 %tmp.68;
-        invoke %tmp.47 %tmp.48(%tmp.52, %tmp.58, %tmp.60, %tmp.64, %tmp.69);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 90 8 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_90_8_94_8_if_stmt:
-        symbol [ _state %tmp.71 90 12 18 ];
-        %tmp.71 = getv ? :_state;
-        symbol [ STATE_PAUSED %tmp.73 90 22 34 ];
-        %tmp.73 = getv ? :STATE_PAUSED;
-        %tmp.74 = eq %tmp.71 %tmp.73;
-        bf %tmp.74 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_90_8_94_8_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_90_8_94_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_90_36_92_8_start:
+        %tmp.38 = lgetv %dc;
+        symbol [ dc %tmp.38 81 8 10 ];
+        symbol [ drawText %tmp.39 81 11 19 ];
+        %tmp.39 = getv function %tmp.38 :drawText;
+        symbol [ _screenW %tmp.41 82 12 20 ];
+        %tmp.41 = getv ? :_screenW;
+        %tmp.42 = 2;
+        %tmp.43 = div %tmp.41 %tmp.42;
+        %tmp.44 = 104;
+        symbol [ Graphics %tmp.45 84 12 20 ];
+        %tmp.45 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.46 84 21 31 ];
+        %tmp.46 = getv %tmp.45 :FONT_XTINY;
+        symbol [ _statusDetail %tmp.48 85 12 25 ];
+        %tmp.48 = getv ? :_statusDetail;
+        symbol [ Graphics %tmp.49 86 12 20 ];
+        %tmp.49 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.50 86 21 40 ];
+        %tmp.50 = getv %tmp.49 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.51 86 43 51 ];
+        %tmp.51 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.52 86 52 72 ];
+        %tmp.52 = getv %tmp.51 :TEXT_JUSTIFY_VCENTER;
+        %tmp.53 = bitor %tmp.50 %tmp.52;
+        invoke %tmp.38 %tmp.39(%tmp.43, %tmp.44, %tmp.46, %tmp.48, %tmp.53);
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 89 8 ]
+        for @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_test @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_incr @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_init:
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_begin" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_end" ]
+        %i.1 = local;
+        symbol [ i %i.1 89 17 18 ];
+        %tmp.54 = 0;
+        lputv %i.1 %tmp.54;
+        symbol [ i %i.1 89 17 18 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_test:
+        %tmp.55 = lgetv %i.1;
+        symbol [ i %tmp.55 89 24 25 ];
+        symbol [ _presets %tmp.57 89 28 36 ];
+        %tmp.57 = getv ? :_presets;
+        symbol [ size %tmp.58 89 37 41 ];
+        %tmp.58 = getv function %tmp.57 :size;
+        %tmp.59 = invoke %tmp.57 %tmp.58();
+        %tmp.60 = lt %tmp.55 %tmp.59;
+        bf %tmp.60 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_begin:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_53_94_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 90 12 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_53_94_8_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_53_94_8_stop" ]
+        %preset.2 = local;
+        symbol [ preset %preset.2 90 16 22 ];
+        symbol [ _presets %tmp.62 90 25 33 ];
+        %tmp.62 = getv ? :_presets;
+        %tmp.63 = lgetv %i.1;
+        symbol [ i %tmp.63 90 34 35 ];
+        %tmp.64 = agetv %tmp.62 %tmp.63;
+        lputv %preset.2 %tmp.64;
+        symbol [ preset %preset.2 90 16 22 ];
 [ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 91 12 ]
-        %tmp.75 = self;
-        symbol [ _drawLabel %tmp.76 91 12 22 ];
-        %tmp.76 = getv function %tmp.75 :_drawLabel;
-        %tmp.77 = lgetv %dc;
-        symbol [ dc %tmp.77 91 23 25 ];
-        %tmp.78 = "PAUSED";
-        invoke %tmp.75 %tmp.76(%tmp.77, %tmp.78);
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_90_36_92_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_90_8_94_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_90_8_94_8_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 92 15 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_92_15_94_8_if_stmt:
-        symbol [ _state %tmp.80 92 19 25 ];
-        %tmp.80 = getv ? :_state;
-        symbol [ STATE_STOPPED %tmp.82 92 29 42 ];
-        %tmp.82 = getv ? :STATE_STOPPED;
-        %tmp.83 = eq %tmp.80 %tmp.82;
-        bf %tmp.83 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_92_15_94_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_92_15_94_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_92_44_94_8_start:
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_53_94_8_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_53_94_8_stop" ]
+        %isSelected.3 = local;
+        symbol [ isSelected %isSelected.3 91 16 26 ];
+        %tmp.65 = lgetv %i.1;
+        symbol [ i %tmp.65 91 30 31 ];
+        symbol [ _selectedIndex %tmp.67 91 35 49 ];
+        %tmp.67 = getv ? :_selectedIndex;
+        %tmp.68 = eq %tmp.65 %tmp.67;
+        lputv %isSelected.3 %tmp.68;
+        symbol [ isSelected %isSelected.3 91 16 26 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 92 12 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_53_94_8_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_53_94_8_stop" ]
+        %color.4 = local;
+        symbol [ color %color.4 92 16 21 ];
+        %tmp.69 = self;
+        symbol [ _colorForButton %tmp.70 92 24 39 ];
+        %tmp.70 = getv function %tmp.69 :_colorForButton;
+        %tmp.71 = lgetv %i.1;
+        symbol [ i %tmp.71 92 40 41 ];
+        %tmp.72 = lgetv %isSelected.3;
+        symbol [ isSelected %tmp.72 92 43 53 ];
+        %tmp.73 = invoke %tmp.69 %tmp.70(%tmp.71, %tmp.72);
+        lputv %color.4 %tmp.73;
+        symbol [ color %color.4 92 16 21 ];
 [ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 93 12 ]
-        %tmp.84 = self;
-        symbol [ _drawLabel %tmp.85 93 12 22 ];
-        %tmp.85 = getv function %tmp.84 :_drawLabel;
-        %tmp.86 = lgetv %dc;
-        symbol [ dc %tmp.86 93 23 25 ];
-        %tmp.87 = "STOPPED";
-        invoke %tmp.84 %tmp.85(%tmp.86, %tmp.87);
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_92_44_94_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_92_15_94_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_92_15_94_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_90_8_94_8_if_end:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 97 8 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_8_107_8_if_stmt:
-        symbol [ _state %tmp.89 97 12 18 ];
-        %tmp.89 = getv ? :_state;
-        symbol [ STATE_IDLE %tmp.91 97 22 32 ];
-        %tmp.91 = getv ? :STATE_IDLE;
-        %tmp.92 = eq %tmp.89 %tmp.91;
-        bf %tmp.92 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_8_107_8_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_8_107_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_34_99_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 98 12 ]
-        %tmp.93 = self;
-        symbol [ _drawBtn %tmp.94 98 12 20 ];
-        %tmp.94 = getv function %tmp.93 :_drawBtn;
-        %tmp.95 = lgetv %dc;
-        symbol [ dc %tmp.95 98 21 23 ];
-        symbol [ _btnSingle %tmp.97 98 25 35 ];
-        %tmp.97 = getv ? :_btnSingle;
-        %tmp.98 = 0x00AA00;
-        %tmp.99 = "Start";
-        invoke %tmp.93 %tmp.94(%tmp.95, %tmp.97, %tmp.98, %tmp.99);
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_34_99_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_8_107_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_8_107_8_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 99 15 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_99_15_107_8_if_stmt:
-        symbol [ _state %tmp.101 99 19 25 ];
-        %tmp.101 = getv ? :_state;
-        symbol [ STATE_RUNNING %tmp.103 99 29 42 ];
-        %tmp.103 = getv ? :STATE_RUNNING;
-        %tmp.104 = eq %tmp.101 %tmp.103;
-        bf %tmp.104 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_99_15_107_8_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_99_15_107_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_99_44_102_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 100 12 ]
-        %tmp.105 = self;
-        symbol [ _drawBtn %tmp.106 100 12 20 ];
-        %tmp.106 = getv function %tmp.105 :_drawBtn;
-        %tmp.107 = lgetv %dc;
-        symbol [ dc %tmp.107 100 21 23 ];
-        symbol [ _btnTop %tmp.109 100 25 32 ];
-        %tmp.109 = getv ? :_btnTop;
-        %tmp.110 = 0xFF8800;
-        %tmp.111 = "Pause";
-        invoke %tmp.105 %tmp.106(%tmp.107, %tmp.109, %tmp.110, %tmp.111);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 101 12 ]
-        %tmp.112 = self;
-        symbol [ _drawBtn %tmp.113 101 12 20 ];
-        %tmp.113 = getv function %tmp.112 :_drawBtn;
-        %tmp.114 = lgetv %dc;
-        symbol [ dc %tmp.114 101 21 23 ];
-        symbol [ _btnBot %tmp.116 101 25 32 ];
-        %tmp.116 = getv ? :_btnBot;
-        %tmp.117 = 0xCC0000;
-        %tmp.118 = "Stop";
-        invoke %tmp.112 %tmp.113(%tmp.114, %tmp.116, %tmp.117, %tmp.118);
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_99_44_102_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_99_15_107_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_99_15_107_8_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 102 15 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_102_15_107_8_if_stmt:
-        symbol [ _state %tmp.120 102 19 25 ];
-        %tmp.120 = getv ? :_state;
-        symbol [ STATE_PAUSED %tmp.122 102 29 41 ];
-        %tmp.122 = getv ? :STATE_PAUSED;
-        %tmp.123 = eq %tmp.120 %tmp.122;
-        bf %tmp.123 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_102_15_107_8_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_102_15_107_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_102_43_105_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 103 12 ]
-        %tmp.124 = self;
-        symbol [ _drawBtn %tmp.125 103 12 20 ];
-        %tmp.125 = getv function %tmp.124 :_drawBtn;
-        %tmp.126 = lgetv %dc;
-        symbol [ dc %tmp.126 103 21 23 ];
-        symbol [ _btnTop %tmp.128 103 25 32 ];
-        %tmp.128 = getv ? :_btnTop;
-        %tmp.129 = 0x00AA00;
-        %tmp.130 = "Resume";
-        invoke %tmp.124 %tmp.125(%tmp.126, %tmp.128, %tmp.129, %tmp.130);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 104 12 ]
-        %tmp.131 = self;
-        symbol [ _drawBtn %tmp.132 104 12 20 ];
-        %tmp.132 = getv function %tmp.131 :_drawBtn;
-        %tmp.133 = lgetv %dc;
-        symbol [ dc %tmp.133 104 21 23 ];
-        symbol [ _btnBot %tmp.135 104 25 32 ];
-        %tmp.135 = getv ? :_btnBot;
-        %tmp.136 = 0xCC0000;
-        %tmp.137 = "Stop";
-        invoke %tmp.131 %tmp.132(%tmp.133, %tmp.135, %tmp.136, %tmp.137);
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_102_43_105_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_102_15_107_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_102_15_107_8_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 105 15 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_105_15_107_8_if_stmt:
-        symbol [ _state %tmp.139 105 19 25 ];
-        %tmp.139 = getv ? :_state;
-        symbol [ STATE_STOPPED %tmp.141 105 29 42 ];
-        %tmp.141 = getv ? :STATE_STOPPED;
-        %tmp.142 = eq %tmp.139 %tmp.141;
-        bf %tmp.142 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_105_15_107_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_105_15_107_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_105_44_107_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 106 12 ]
-        %tmp.143 = self;
-        symbol [ _drawBtn %tmp.144 106 12 20 ];
-        %tmp.144 = getv function %tmp.143 :_drawBtn;
-        %tmp.145 = lgetv %dc;
-        symbol [ dc %tmp.145 106 21 23 ];
-        symbol [ _btnSingle %tmp.147 106 25 35 ];
-        %tmp.147 = getv ? :_btnSingle;
-        %tmp.148 = 0x0066CC;
-        %tmp.149 = "Reset";
-        invoke %tmp.143 %tmp.144(%tmp.145, %tmp.147, %tmp.148, %tmp.149);
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_105_44_107_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_105_15_107_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_105_15_107_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_102_15_107_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_99_15_107_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_8_107_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_63_40_108_4_stop:
+        %tmp.74 = self;
+        symbol [ _drawBtn %tmp.75 93 12 20 ];
+        %tmp.75 = getv function %tmp.74 :_drawBtn;
+        %tmp.76 = lgetv %dc;
+        symbol [ dc %tmp.76 93 21 23 ];
+        symbol [ _btnAreas %tmp.78 93 25 34 ];
+        %tmp.78 = getv ? :_btnAreas;
+        %tmp.79 = lgetv %i.1;
+        symbol [ i %tmp.79 93 35 36 ];
+        %tmp.80 = agetv %tmp.78 %tmp.79;
+        %tmp.81 = lgetv %color.4;
+        symbol [ color %tmp.81 93 39 44 ];
+        %tmp.82 = lgetv %preset.2;
+        symbol [ preset %tmp.82 93 46 52 ];
+        %tmp.84 = const :label;
+        symbol [ label %tmp.84 93 54 59 const ];
+        %tmp.85 = agetv %tmp.82 %tmp.84;
+        invoke %tmp.74 %tmp.75(%tmp.76, %tmp.80, %tmp.81, %tmp.85);
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_53_94_8_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_incr:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 89 ]
+        %tmp.86 = lgetv %i.1;
+        symbol [ i %tmp.86 89 45 46 ];
+        %tmp.87 = 1;
+        %tmp.88 = add %tmp.86 %tmp.87;
+        lputv %i.1 %tmp.88;
+        symbol [ i %i.1 89 45 46 ];
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_test;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_89_8_94_8_for_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_68_40_95_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 110; @symbol_functiondef = [_drawLabel,110,21,31]; @symbol_param<0> = [dc,110,32,34]; @symbol_param<0>_type<0> = [Dc,110,38,40]; @symbol_param<1> = [text,110,42,46]; @symbol_param<1>_type<0> = [String,110,50,56]; ]
-    private
-    function _drawLabel(dc as Dc, text as String) as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_110_66_119_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 111 8 ]
-        %tmp.1 = lgetv %dc;
-        symbol [ dc %tmp.1 111 8 10 ];
-        symbol [ setColor %tmp.2 111 11 19 ];
-        %tmp.2 = getv function %tmp.1 :setColor;
-        symbol [ Graphics %tmp.3 111 20 28 ];
-        %tmp.3 = getm $.Toybox.Graphics;
-        symbol [ COLOR_LT_GRAY %tmp.4 111 29 42 ];
-        %tmp.4 = getv %tmp.3 :COLOR_LT_GRAY;
-        symbol [ Graphics %tmp.5 111 44 52 ];
-        %tmp.5 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.6 111 53 70 ];
-        %tmp.6 = getv %tmp.5 :COLOR_TRANSPARENT;
-        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 112 8 ]
-        %tmp.7 = lgetv %dc;
-        symbol [ dc %tmp.7 112 8 10 ];
-        symbol [ drawText %tmp.8 112 11 19 ];
-        %tmp.8 = getv function %tmp.7 :drawText;
-        symbol [ _screenW %tmp.10 113 12 20 ];
-        %tmp.10 = getv ? :_screenW;
-        %tmp.11 = 2;
-        %tmp.12 = div %tmp.10 %tmp.11;
-        symbol [ _screenH %tmp.14 114 12 20 ];
-        %tmp.14 = getv ? :_screenH;
-        %tmp.15 = 2;
-        %tmp.16 = div %tmp.14 %tmp.15;
-        %tmp.17 = 66;
-        %tmp.18 = add %tmp.16 %tmp.17;
-        symbol [ Graphics %tmp.19 115 12 20 ];
-        %tmp.19 = getm $.Toybox.Graphics;
-        symbol [ FONT_SMALL %tmp.20 115 21 31 ];
-        %tmp.20 = getv %tmp.19 :FONT_SMALL;
-        %tmp.21 = lgetv %text;
-        symbol [ text %tmp.21 116 12 16 ];
-        symbol [ Graphics %tmp.22 117 12 20 ];
-        %tmp.22 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.23 117 21 40 ];
-        %tmp.23 = getv %tmp.22 :TEXT_JUSTIFY_CENTER;
-        symbol [ Graphics %tmp.24 117 43 51 ];
-        %tmp.24 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_VCENTER %tmp.25 117 52 72 ];
-        %tmp.25 = getv %tmp.24 :TEXT_JUSTIFY_VCENTER;
-        %tmp.26 = bitor %tmp.23 %tmp.25;
-        invoke %tmp.7 %tmp.8(%tmp.12, %tmp.18, %tmp.20, %tmp.21, %tmp.26);
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_110_66_119_4_stop:
-    }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 121; @symbol_functiondef = [_drawBtn,121,21,29]; @symbol_param<0> = [dc,121,30,32]; @symbol_param<0>_type<0> = [Dc,121,36,38]; @symbol_param<1> = [area,121,40,44]; @symbol_param<1>_type<0> = [Array,121,48,53]; @symbol_param<2> = [color,121,55,60]; @symbol_param<2>_type<0> = [Number,121,64,70]; @symbol_param<3> = [label,121,72,77]; @symbol_param<3>_type<0> = [String,121,81,87]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 97; @symbol_functiondef = [_drawBtn,97,21,29]; @symbol_param<0> = [dc,97,30,32]; @symbol_param<0>_type<0> = [Dc,97,36,38]; @symbol_param<1> = [area,97,40,44]; @symbol_param<1>_type<0> = [Array,97,48,53]; @symbol_param<2> = [color,97,55,60]; @symbol_param<2>_type<0> = [Number,97,64,70]; @symbol_param<3> = [label,97,72,77]; @symbol_param<3>_type<0> = [String,97,81,87]; ]
     private
     function _drawBtn(dc as Dc, area as Array, color as Number, label as String) as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_121_97_132_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 122 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_97_108_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 98 8 ]
         %tmp.1 = lgetv %dc;
-        symbol [ dc %tmp.1 122 8 10 ];
-        symbol [ setColor %tmp.2 122 11 19 ];
+        symbol [ dc %tmp.1 98 8 10 ];
+        symbol [ setColor %tmp.2 98 11 19 ];
         %tmp.2 = getv function %tmp.1 :setColor;
         %tmp.3 = lgetv %color;
-        symbol [ color %tmp.3 122 20 25 ];
-        symbol [ Graphics %tmp.4 122 27 35 ];
+        symbol [ color %tmp.3 98 20 25 ];
+        symbol [ Graphics %tmp.4 98 27 35 ];
         %tmp.4 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.5 122 36 53 ];
+        symbol [ COLOR_TRANSPARENT %tmp.5 98 36 53 ];
         %tmp.5 = getv %tmp.4 :COLOR_TRANSPARENT;
         invoke %tmp.1 %tmp.2(%tmp.3, %tmp.5);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 123 8 ]
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 99 8 ]
         %tmp.6 = lgetv %dc;
-        symbol [ dc %tmp.6 123 8 10 ];
-        symbol [ fillRoundedRectangle %tmp.7 123 11 31 ];
+        symbol [ dc %tmp.6 99 8 10 ];
+        symbol [ fillRoundedRectangle %tmp.7 99 11 31 ];
         %tmp.7 = getv function %tmp.6 :fillRoundedRectangle;
         %tmp.8 = lgetv %area;
-        symbol [ area %tmp.8 123 32 36 ];
+        symbol [ area %tmp.8 99 32 36 ];
         %tmp.9 = 0;
         %tmp.10 = agetv %tmp.8 %tmp.9;
         %tmp.11 = lgetv %area;
-        symbol [ area %tmp.11 123 41 45 ];
+        symbol [ area %tmp.11 99 41 45 ];
         %tmp.12 = 1;
         %tmp.13 = agetv %tmp.11 %tmp.12;
         %tmp.14 = lgetv %area;
-        symbol [ area %tmp.14 123 50 54 ];
+        symbol [ area %tmp.14 99 50 54 ];
         %tmp.15 = 2;
         %tmp.16 = agetv %tmp.14 %tmp.15;
         %tmp.17 = lgetv %area;
-        symbol [ area %tmp.17 123 59 63 ];
+        symbol [ area %tmp.17 99 59 63 ];
         %tmp.18 = 3;
         %tmp.19 = agetv %tmp.17 %tmp.18;
         %tmp.20 = 10;
         invoke %tmp.6 %tmp.7(%tmp.10, %tmp.13, %tmp.16, %tmp.19, %tmp.20);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 124 8 ]
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 100 8 ]
         %tmp.21 = lgetv %dc;
-        symbol [ dc %tmp.21 124 8 10 ];
-        symbol [ setColor %tmp.22 124 11 19 ];
+        symbol [ dc %tmp.21 100 8 10 ];
+        symbol [ setColor %tmp.22 100 11 19 ];
         %tmp.22 = getv function %tmp.21 :setColor;
-        symbol [ Graphics %tmp.23 124 20 28 ];
+        symbol [ Graphics %tmp.23 100 20 28 ];
         %tmp.23 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.24 124 29 40 ];
+        symbol [ COLOR_WHITE %tmp.24 100 29 40 ];
         %tmp.24 = getv %tmp.23 :COLOR_WHITE;
-        symbol [ Graphics %tmp.25 124 42 50 ];
+        symbol [ Graphics %tmp.25 100 42 50 ];
         %tmp.25 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.26 124 51 68 ];
+        symbol [ COLOR_TRANSPARENT %tmp.26 100 51 68 ];
         %tmp.26 = getv %tmp.25 :COLOR_TRANSPARENT;
         invoke %tmp.21 %tmp.22(%tmp.24, %tmp.26);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 125 8 ]
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 101 8 ]
         %tmp.27 = lgetv %dc;
-        symbol [ dc %tmp.27 125 8 10 ];
-        symbol [ drawText %tmp.28 125 11 19 ];
+        symbol [ dc %tmp.27 101 8 10 ];
+        symbol [ drawText %tmp.28 101 11 19 ];
         %tmp.28 = getv function %tmp.27 :drawText;
         %tmp.29 = lgetv %area;
-        symbol [ area %tmp.29 126 12 16 ];
+        symbol [ area %tmp.29 102 12 16 ];
         %tmp.30 = 0;
         %tmp.31 = agetv %tmp.29 %tmp.30;
         %tmp.32 = lgetv %area;
-        symbol [ area %tmp.32 126 22 26 ];
+        symbol [ area %tmp.32 102 22 26 ];
         %tmp.33 = 2;
         %tmp.34 = agetv %tmp.32 %tmp.33;
         %tmp.35 = 2;
         %tmp.36 = div %tmp.34 %tmp.35;
         %tmp.37 = add %tmp.31 %tmp.36;
         %tmp.38 = lgetv %area;
-        symbol [ area %tmp.38 127 12 16 ];
+        symbol [ area %tmp.38 103 12 16 ];
         %tmp.39 = 1;
         %tmp.40 = agetv %tmp.38 %tmp.39;
         %tmp.41 = lgetv %area;
-        symbol [ area %tmp.41 127 22 26 ];
+        symbol [ area %tmp.41 103 22 26 ];
         %tmp.42 = 3;
         %tmp.43 = agetv %tmp.41 %tmp.42;
         %tmp.44 = 2;
         %tmp.45 = div %tmp.43 %tmp.44;
         %tmp.46 = add %tmp.40 %tmp.45;
-        symbol [ Graphics %tmp.47 128 12 20 ];
+        symbol [ Graphics %tmp.47 104 12 20 ];
         %tmp.47 = getm $.Toybox.Graphics;
-        symbol [ FONT_SMALL %tmp.48 128 21 31 ];
-        %tmp.48 = getv %tmp.47 :FONT_SMALL;
+        symbol [ FONT_XTINY %tmp.48 104 21 31 ];
+        %tmp.48 = getv %tmp.47 :FONT_XTINY;
         %tmp.49 = lgetv %label;
-        symbol [ label %tmp.49 129 12 17 ];
-        symbol [ Graphics %tmp.50 130 12 20 ];
+        symbol [ label %tmp.49 105 12 17 ];
+        symbol [ Graphics %tmp.50 106 12 20 ];
         %tmp.50 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.51 130 21 40 ];
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.51 106 21 40 ];
         %tmp.51 = getv %tmp.50 :TEXT_JUSTIFY_CENTER;
-        symbol [ Graphics %tmp.52 130 43 51 ];
+        symbol [ Graphics %tmp.52 106 43 51 ];
         %tmp.52 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_VCENTER %tmp.53 130 52 72 ];
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.53 106 52 72 ];
         %tmp.53 = getv %tmp.52 :TEXT_JUSTIFY_VCENTER;
         %tmp.54 = bitor %tmp.51 %tmp.53;
         invoke %tmp.27 %tmp.28(%tmp.37, %tmp.46, %tmp.48, %tmp.49, %tmp.54);
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_121_97_132_4_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_97_97_108_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 134; @symbol_functiondef = [_formatMajor,134,21,33]; @symbol_param<0> = [ms,134,34,36]; @symbol_param<0>_type<0> = [Number,134,40,46]; @symbol_return<0> = [String,134,51,57]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 110; @symbol_functiondef = [_colorForButton,110,21,36]; @symbol_param<0> = [index,110,37,42]; @symbol_param<0>_type<0> = [Number,110,46,52]; @symbol_param<1> = [isSelected,110,54,64]; @symbol_param<1>_type<0> = [Boolean,110,68,75]; @symbol_return<0> = [Number,110,80,86]; ]
     private
-    function _formatMajor(ms as Number) as String {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_134_58_139_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 135 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_134_58_139_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_134_58_139_4_stop" ]
-        %totalSecs.1 = local;
-        symbol [ totalSecs %totalSecs.1 135 12 21 ];
-        %tmp.1 = lgetv %ms;
-        symbol [ ms %tmp.1 135 24 26 ];
-        %tmp.2 = 1000;
-        %tmp.3 = div %tmp.1 %tmp.2;
-        lputv %totalSecs.1 %tmp.3;
-        symbol [ totalSecs %totalSecs.1 135 12 21 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 136 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_134_58_139_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_134_58_139_4_stop" ]
-        %mins.2 = local;
-        symbol [ mins %mins.2 136 12 16 ];
-        %tmp.4 = lgetv %totalSecs.1;
-        symbol [ totalSecs %tmp.4 136 19 28 ];
-        %tmp.5 = 60;
-        %tmp.6 = div %tmp.4 %tmp.5;
-        lputv %mins.2 %tmp.6;
-        symbol [ mins %mins.2 136 12 16 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 137 8 ]
-        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_134_58_139_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_134_58_139_4_stop" ]
-        %secs.3 = local;
-        symbol [ secs %secs.3 137 12 16 ];
-        %tmp.7 = lgetv %totalSecs.1;
-        symbol [ totalSecs %tmp.7 137 19 28 ];
-        %tmp.8 = 60;
-        %tmp.9 = mod %tmp.7 %tmp.8;
-        lputv %secs.3 %tmp.9;
-        symbol [ secs %secs.3 137 12 16 ];
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 138 8 ]
-        %tmp.10 = lgetv %mins.2;
-        symbol [ mins %tmp.10 138 15 19 ];
-        symbol [ format %tmp.11 138 20 26 ];
-        %tmp.11 = getv function %tmp.10 :format;
-        %tmp.12 = "%02d";
-        %tmp.13 = invoke %tmp.10 %tmp.11(%tmp.12);
-        %tmp.14 = ":";
-        %tmp.15 = add %tmp.13 %tmp.14;
-        %tmp.16 = lgetv %secs.3;
-        symbol [ secs %tmp.16 138 43 47 ];
-        symbol [ format %tmp.17 138 48 54 ];
-        %tmp.17 = getv function %tmp.16 :format;
-        %tmp.18 = "%02d";
-        %tmp.19 = invoke %tmp.16 %tmp.17(%tmp.18);
-        %tmp.20 = add %tmp.15 %tmp.19;
-        ret %tmp.20;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_134_58_139_4_stop:
+    function _colorForButton(index as Number, isSelected as Boolean) as Number {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_110_87_129_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 111 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_110_87_129_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_110_87_129_4_stop" ]
+        %base.1 = local;
+        symbol [ base %base.1 111 12 16 ];
+        %tmp.1 = 0x2A5DCC;
+        lputv %base.1 %tmp.1;
+        symbol [ base %base.1 111 12 16 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 112 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_112_8_116_8_if_stmt:
+        %tmp.2 = lgetv %index;
+        symbol [ index %tmp.2 112 12 17 ];
+        %tmp.3 = 1;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_112_8_116_8_if_false;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_112_8_116_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_112_24_114_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 113 12 ]
+        %tmp.5 = 0x2B8A3E;
+        lputv %base.1 %tmp.5;
+        symbol [ base %base.1 113 12 16 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_112_24_114_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_112_8_116_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_112_8_116_8_if_false:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 114 15 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_114_15_116_8_if_stmt:
+        %tmp.6 = lgetv %index;
+        symbol [ index %tmp.6 114 19 24 ];
+        %tmp.7 = 2;
+        %tmp.8 = eq %tmp.6 %tmp.7;
+        bf %tmp.8 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_114_15_116_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_114_15_116_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_114_31_116_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 115 12 ]
+        %tmp.9 = 0x8A5B00;
+        lputv %base.1 %tmp.9;
+        symbol [ base %base.1 115 12 16 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_114_31_116_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_114_15_116_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_114_15_116_8_if_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_112_8_116_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 118 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_118_8_123_8_if_stmt:
+        symbol [ _state %tmp.11 118 12 18 ];
+        %tmp.11 = getv ? :_state;
+        symbol [ STATE_SENDING %tmp.13 118 22 35 ];
+        %tmp.13 = getv ? :STATE_SENDING;
+        %tmp.14 = eq %tmp.11 %tmp.13;
+        bf %tmp.14 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_118_8_123_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_118_8_123_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_118_37_123_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 119 12 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_12_121_12_if_stmt:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_16_119_67_begin:
+        symbol [ _activePresetId %tmp.16 119 16 31 ];
+        %tmp.16 = getv ? :_activePresetId;
+        %tmp.17 = null;
+        %tmp.18 = ne %tmp.16 %tmp.17;
+        bf %tmp.18 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_12_121_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_43_119_67_true:
+        symbol [ _presets %tmp.20 119 43 51 ];
+        %tmp.20 = getv ? :_presets;
+        %tmp.21 = lgetv %index;
+        symbol [ index %tmp.21 119 52 57 ];
+        %tmp.22 = agetv %tmp.20 %tmp.21;
+        %tmp.24 = const :id;
+        symbol [ id %tmp.24 119 60 62 const ];
+        %tmp.25 = agetv %tmp.22 %tmp.24;
+        symbol [ _activePresetId %tmp.27 119 67 82 ];
+        %tmp.27 = getv ? :_activePresetId;
+        %tmp.28 = as %tmp.27 { (!Null) };
+        %tmp.29 = eq %tmp.25 %tmp.28;
+        push %tmp.29;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_43_119_67_end:
+        %tmp.30 = phi [%tmp.18 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_16_119_67_begin] [%tmp.29 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_43_119_67_true] [%tmp.30 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_43_119_67_end];
+        bf %tmp.30 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_12_121_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_12_121_12_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_84_121_12_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 120 16 ]
+        %tmp.31 = 0x666666;
+        ret %tmp.31;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_84_121_12_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_12_121_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_119_12_121_12_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 122 12 ]
+        %tmp.32 = 0x2C2C2C;
+        ret %tmp.32;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_118_37_123_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_118_8_123_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_118_8_123_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 125 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_125_8_127_8_if_stmt:
+        %tmp.33 = lgetv %isSelected;
+        symbol [ isSelected %tmp.33 125 12 22 ];
+        bf %tmp.33 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_125_8_127_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_125_8_127_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_125_24_127_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 126 12 ]
+        %tmp.34 = lgetv %base.1;
+        symbol [ base %tmp.34 126 19 23 ];
+        ret %tmp.34;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_125_24_127_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_125_8_127_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_125_8_127_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 128 8 ]
+        %tmp.35 = 0x1F1F1F;
+        ret %tmp.35;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_110_87_129_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 141; @symbol_functiondef = [_formatMinor,141,21,33]; @symbol_param<0> = [ms,141,34,36]; @symbol_param<0>_type<0> = [Number,141,40,46]; @symbol_return<0> = [String,141,51,57]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 131; @symbol_functiondef = [_statusColor,131,21,33]; @symbol_return<0> = [Number,131,39,45]; ]
     private
-    function _formatMinor(ms as Number) as String {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_141_58_143_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 142 8 ]
-        %tmp.1 = ".";
-        %tmp.2 = lgetv %ms;
-        symbol [ ms %tmp.2 142 22 24 ];
-        %tmp.3 = 1000;
-        %tmp.4 = mod %tmp.2 %tmp.3;
-        symbol [ format %tmp.5 142 33 39 ];
-        %tmp.5 = getv function %tmp.4 :format;
-        %tmp.6 = "%03d";
-        %tmp.7 = invoke %tmp.4 %tmp.5(%tmp.6);
-        %tmp.8 = add %tmp.1 %tmp.7;
-        ret %tmp.8;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_141_58_143_4_stop:
-    }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 145; @symbol_functiondef = [_getCurrentElapsed,145,21,39]; @symbol_return<0> = [Number,145,45,51]; ]
-    private
-    function _getCurrentElapsed() as Number {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_145_52_150_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 146 8 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_146_8_148_8_if_stmt:
-        symbol [ _state %tmp.2 146 12 18 ];
+    function _statusColor() as Number {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_131_46_142_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 132 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_132_8_134_8_if_stmt:
+        symbol [ _state %tmp.2 132 12 18 ];
         %tmp.2 = getv ? :_state;
-        symbol [ STATE_RUNNING %tmp.4 146 22 35 ];
-        %tmp.4 = getv ? :STATE_RUNNING;
+        symbol [ STATE_SUCCESS %tmp.4 132 22 35 ];
+        %tmp.4 = getv ? :STATE_SUCCESS;
         %tmp.5 = eq %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_146_8_148_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_146_8_148_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_146_37_148_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 147 12 ]
-        symbol [ _elapsed %tmp.7 147 19 27 ];
-        %tmp.7 = getv ? :_elapsed;
-        symbol [ System %tmp.8 147 31 37 ];
-        %tmp.8 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.9 147 38 46 ];
-        %tmp.9 = getv function %tmp.8 :getTimer;
-        %tmp.10 = invoke %tmp.8 %tmp.9();
-        symbol [ _startMs %tmp.12 147 51 59 ];
-        %tmp.12 = getv ? :_startMs;
-        %tmp.13 = sub %tmp.10 %tmp.12;
-        %tmp.14 = add %tmp.7 %tmp.13;
-        ret %tmp.14;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_146_37_148_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_146_8_148_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_146_8_148_8_if_end:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 149 8 ]
-        symbol [ _elapsed %tmp.16 149 15 23 ];
-        %tmp.16 = getv ? :_elapsed;
-        ret %tmp.16;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_145_52_150_4_stop:
+        bf %tmp.5 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_132_8_134_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_132_8_134_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_132_37_134_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 133 12 ]
+        %tmp.6 = 0x3CD070;
+        ret %tmp.6;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_132_37_134_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_132_8_134_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_132_8_134_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 135 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_135_8_137_8_if_stmt:
+        symbol [ _state %tmp.8 135 12 18 ];
+        %tmp.8 = getv ? :_state;
+        symbol [ STATE_ERROR %tmp.10 135 22 33 ];
+        %tmp.10 = getv ? :STATE_ERROR;
+        %tmp.11 = eq %tmp.8 %tmp.10;
+        bf %tmp.11 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_135_8_137_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_135_8_137_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_135_35_137_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 136 12 ]
+        %tmp.12 = 0xFF5F5F;
+        ret %tmp.12;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_135_35_137_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_135_8_137_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_135_8_137_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 138 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_138_8_140_8_if_stmt:
+        symbol [ _state %tmp.14 138 12 18 ];
+        %tmp.14 = getv ? :_state;
+        symbol [ STATE_SENDING %tmp.16 138 22 35 ];
+        %tmp.16 = getv ? :STATE_SENDING;
+        %tmp.17 = eq %tmp.14 %tmp.16;
+        bf %tmp.17 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_138_8_140_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_138_8_140_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_138_37_140_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 139 12 ]
+        %tmp.18 = 0xFFD166;
+        ret %tmp.18;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_138_37_140_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_138_8_140_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_138_8_140_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 141 8 ]
+        symbol [ Graphics %tmp.19 141 15 23 ];
+        %tmp.19 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.20 141 24 35 ];
+        %tmp.20 = getv %tmp.19 :COLOR_WHITE;
+        ret %tmp.20;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_131_46_142_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 152; @symbol_functiondef = [onHide,152,13,19]; ]
-    function onHide() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_152_30_154_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 153 8 ]
-        symbol [ _hwTimer %tmp.2 153 8 16 ];
-        %tmp.2 = getv ? :_hwTimer;
-        symbol [ stop %tmp.3 153 17 21 ];
-        %tmp.3 = getv function %tmp.2 :stop;
-        invoke %tmp.2 %tmp.3();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_152_30_154_4_stop:
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 144; @symbol_functiondef = [_defaultPresets,144,21,36]; @symbol_return<0> = [Array,144,42,47]; ]
+    private
+    function _defaultPresets() as Array {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_144_48_155_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 145 8 ]
+        %tmp.1 = newa 1;
+        %tmp.2 = newd 6;
+        %tmp.4 = const :id;
+        symbol [ id %tmp.4 147 17 19 const ];
+        %tmp.5 = "yandex_lavka";
+        %tmp.6 = dup %tmp.2;
+        %tmp.7 = aputv %tmp.6 %tmp.4 %tmp.5;
+        %tmp.9 = const :label;
+        symbol [ label %tmp.9 148 17 22 const ];
+        %tmp.10 = "Яндекс Лавка";
+        %tmp.11 = dup %tmp.7;
+        %tmp.12 = aputv %tmp.11 %tmp.9 %tmp.10;
+        %tmp.14 = const :method;
+        symbol [ method %tmp.14 149 17 23 const ];
+        symbol [ Communications %tmp.15 149 28 42 ];
+        %tmp.15 = getm $.Toybox.Communications;
+        symbol [ HTTP_REQUEST_METHOD_POST %tmp.16 149 43 67 ];
+        %tmp.16 = getv %tmp.15 :HTTP_REQUEST_METHOD_POST;
+        %tmp.17 = dup %tmp.12;
+        %tmp.18 = aputv %tmp.17 %tmp.14 %tmp.16;
+        %tmp.20 = const :url;
+        symbol [ url %tmp.20 150 17 20 const ];
+        symbol [ SecretsConfig %tmp.22 150 28 41 ];
+        %tmp.22 = getv ? :SecretsConfig;
+        symbol [ getUrl %tmp.23 150 42 48 ];
+        %tmp.23 = getv function %tmp.22 :getUrl;
+        %tmp.24 = invoke %tmp.22 %tmp.23();
+        %tmp.25 = dup %tmp.18;
+        %tmp.26 = aputv %tmp.25 %tmp.20 %tmp.24;
+        %tmp.28 = const :headers;
+        symbol [ headers %tmp.28 151 17 24 const ];
+        %tmp.29 = self;
+        symbol [ _baseHeaders %tmp.30 151 28 40 ];
+        %tmp.30 = getv function %tmp.29 :_baseHeaders;
+        %tmp.31 = invoke %tmp.29 %tmp.30();
+        %tmp.32 = dup %tmp.26;
+        %tmp.33 = aputv %tmp.32 %tmp.28 %tmp.31;
+        %tmp.35 = const :body;
+        symbol [ body %tmp.35 152 17 21 const ];
+        %tmp.36 = self;
+        symbol [ _baseBody %tmp.37 152 28 37 ];
+        %tmp.37 = getv function %tmp.36 :_baseBody;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        %tmp.39 = dup %tmp.33;
+        %tmp.40 = aputv %tmp.39 %tmp.35 %tmp.38;
+        %tmp.41 = dup %tmp.1;
+        %tmp.42 = aputv %tmp.41 0 %tmp.40;
+        ret %tmp.42;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_144_48_155_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 158; @symbol_functiondef = [doStart,158,13,20]; ]
-    function doStart() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_158_31_164_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 159 8 ]
-        %tmp.1 = 0;
-        symbol [ _elapsed ? 159 8 16 ];
-        putv self :_elapsed %tmp.1;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 160 8 ]
-        symbol [ System %tmp.2 160 19 25 ];
-        %tmp.2 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.3 160 26 34 ];
-        %tmp.3 = getv function %tmp.2 :getTimer;
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 157; @symbol_functiondef = [_baseHeaders,157,21,33]; @symbol_return<0> = [Dictionary,157,39,49]; ]
+    private
+    function _baseHeaders() as Dictionary {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_157_50_159_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 158 8 ]
+        symbol [ SecretsConfig %tmp.2 158 15 28 ];
+        %tmp.2 = getv ? :SecretsConfig;
+        symbol [ getHeaders %tmp.3 158 29 39 ];
+        %tmp.3 = getv function %tmp.2 :getHeaders;
         %tmp.4 = invoke %tmp.2 %tmp.3();
-        symbol [ _startMs ? 160 8 16 ];
-        putv self :_startMs %tmp.4;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 161 8 ]
-        symbol [ STATE_RUNNING %tmp.6 161 19 32 ];
-        %tmp.6 = getv ? :STATE_RUNNING;
-        symbol [ _state ? 161 8 14 ];
-        putv self :_state %tmp.6;
+        ret %tmp.4;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_157_50_159_4_stop:
+    }
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 161; @symbol_functiondef = [_baseBody,161,21,30]; @symbol_return<0> = [Dictionary,161,36,46]; ]
+    private
+    function _baseBody() as Dictionary {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_161_47_163_4_start:
 [ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 162 8 ]
-        symbol [ _hwTimer %tmp.8 162 8 16 ];
-        %tmp.8 = getv ? :_hwTimer;
-        symbol [ start %tmp.9 162 17 22 ];
-        %tmp.9 = getv function %tmp.8 :start;
-        %tmp.10 = self;
-        symbol [ method %tmp.11 162 23 29 ];
-        %tmp.11 = getv function %tmp.10 :method;
-        %tmp.13 = const :onTick;
-        symbol [ onTick %tmp.13 162 31 37 const ];
-        %tmp.14 = invoke %tmp.10 %tmp.11(%tmp.13);
-        %tmp.15 = 50;
-        %tmp.16 = true;
-        invoke %tmp.8 %tmp.9(%tmp.14, %tmp.15, %tmp.16);
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 163 8 ]
-        symbol [ WatchUi %tmp.17 163 8 15 ];
-        %tmp.17 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.18 163 16 29 ];
-        %tmp.18 = getv function %tmp.17 :requestUpdate;
-        invoke %tmp.17 %tmp.18();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_158_31_164_4_stop:
-    }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 166; @symbol_functiondef = [doPause,166,13,20]; ]
-    function doPause() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_31_171_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 167 8 ]
-        symbol [ _elapsed %tmp.1 167 8 16 ];
-        %tmp.1 = getv self :_elapsed;
-        symbol [ System %tmp.2 167 20 26 ];
-        %tmp.2 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.3 167 27 35 ];
-        %tmp.3 = getv function %tmp.2 :getTimer;
+        symbol [ SecretsConfig %tmp.2 162 15 28 ];
+        %tmp.2 = getv ? :SecretsConfig;
+        symbol [ getBody %tmp.3 162 29 36 ];
+        %tmp.3 = getv function %tmp.2 :getBody;
         %tmp.4 = invoke %tmp.2 %tmp.3();
-        symbol [ _startMs %tmp.6 167 40 48 ];
-        %tmp.6 = getv ? :_startMs;
-        %tmp.7 = sub %tmp.4 %tmp.6;
-        %tmp.8 = add %tmp.1 %tmp.7;
-        symbol [ _elapsed ? 167 8 16 ];
-        putv self :_elapsed dup %tmp.8;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 168 8 ]
-        symbol [ STATE_PAUSED %tmp.10 168 20 32 ];
-        %tmp.10 = getv ? :STATE_PAUSED;
-        symbol [ _state ? 168 8 14 ];
-        putv self :_state %tmp.10;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 169 8 ]
-        symbol [ _hwTimer %tmp.12 169 8 16 ];
-        %tmp.12 = getv ? :_hwTimer;
-        symbol [ stop %tmp.13 169 17 21 ];
-        %tmp.13 = getv function %tmp.12 :stop;
-        invoke %tmp.12 %tmp.13();
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 170 8 ]
-        symbol [ WatchUi %tmp.14 170 8 15 ];
-        %tmp.14 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.15 170 16 29 ];
-        %tmp.15 = getv function %tmp.14 :requestUpdate;
-        invoke %tmp.14 %tmp.15();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_31_171_4_stop:
+        ret %tmp.4;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_161_47_163_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 173; @symbol_functiondef = [doResume,173,13,21]; ]
-    function doResume() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_32_178_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 174 8 ]
-        symbol [ System %tmp.1 174 19 25 ];
-        %tmp.1 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.2 174 26 34 ];
-        %tmp.2 = getv function %tmp.1 :getTimer;
-        %tmp.3 = invoke %tmp.1 %tmp.2();
-        symbol [ _startMs ? 174 8 16 ];
-        putv self :_startMs %tmp.3;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 175 8 ]
-        symbol [ STATE_RUNNING %tmp.5 175 19 32 ];
-        %tmp.5 = getv ? :STATE_RUNNING;
-        symbol [ _state ? 175 8 14 ];
-        putv self :_state %tmp.5;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 176 8 ]
-        symbol [ _hwTimer %tmp.7 176 8 16 ];
-        %tmp.7 = getv ? :_hwTimer;
-        symbol [ start %tmp.8 176 17 22 ];
-        %tmp.8 = getv function %tmp.7 :start;
-        %tmp.9 = self;
-        symbol [ method %tmp.10 176 23 29 ];
-        %tmp.10 = getv function %tmp.9 :method;
-        %tmp.12 = const :onTick;
-        symbol [ onTick %tmp.12 176 31 37 const ];
-        %tmp.13 = invoke %tmp.9 %tmp.10(%tmp.12);
-        %tmp.14 = 50;
-        %tmp.15 = true;
-        invoke %tmp.7 %tmp.8(%tmp.13, %tmp.14, %tmp.15);
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 165; @symbol_functiondef = [moveSelection,165,13,26]; @symbol_param<0> = [delta,165,27,32]; @symbol_param<0>_type<0> = [Number,165,36,42]; ]
+    function moveSelection(delta as Number) as Void {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_165_52_181_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 166 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_8_168_8_if_stmt:
+        symbol [ _state %tmp.2 166 12 18 ];
+        %tmp.2 = getv ? :_state;
+        symbol [ STATE_SENDING %tmp.4 166 22 35 ];
+        %tmp.4 = getv ? :STATE_SENDING;
+        %tmp.5 = eq %tmp.2 %tmp.4;
+        bf %tmp.5 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_8_168_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_8_168_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_37_168_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 167 12 ]
+        ret ?;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_37_168_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_8_168_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_166_8_168_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 170 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_165_52_181_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_165_52_181_4_stop" ]
+        %next.1 = local;
+        symbol [ next %next.1 170 12 16 ];
+        symbol [ _selectedIndex %tmp.7 170 19 33 ];
+        %tmp.7 = getv ? :_selectedIndex;
+        %tmp.8 = lgetv %delta;
+        symbol [ delta %tmp.8 170 36 41 ];
+        %tmp.9 = add %tmp.7 %tmp.8;
+        lputv %next.1 %tmp.9;
+        symbol [ next %next.1 170 12 16 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 171 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_171_8_175_8_if_stmt:
+        %tmp.10 = lgetv %next.1;
+        symbol [ next %tmp.10 171 12 16 ];
+        %tmp.11 = 0;
+        %tmp.12 = lt %tmp.10 %tmp.11;
+        bf %tmp.12 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_171_8_175_8_if_false;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_171_8_175_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_171_22_173_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 172 12 ]
+        symbol [ _presets %tmp.14 172 19 27 ];
+        %tmp.14 = getv ? :_presets;
+        symbol [ size %tmp.15 172 28 32 ];
+        %tmp.15 = getv function %tmp.14 :size;
+        %tmp.16 = invoke %tmp.14 %tmp.15();
+        %tmp.17 = 1;
+        %tmp.18 = sub %tmp.16 %tmp.17;
+        lputv %next.1 %tmp.18;
+        symbol [ next %next.1 172 12 16 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_171_22_173_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_171_8_175_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_171_8_175_8_if_false:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 173 15 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_15_175_8_if_stmt:
+        %tmp.19 = lgetv %next.1;
+        symbol [ next %tmp.19 173 19 23 ];
+        symbol [ _presets %tmp.21 173 27 35 ];
+        %tmp.21 = getv ? :_presets;
+        symbol [ size %tmp.22 173 36 40 ];
+        %tmp.22 = getv function %tmp.21 :size;
+        %tmp.23 = invoke %tmp.21 %tmp.22();
+        %tmp.24 = gte %tmp.19 %tmp.23;
+        bf %tmp.24 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_15_175_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_15_175_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_44_175_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 174 12 ]
+        %tmp.25 = 0;
+        lputv %next.1 %tmp.25;
+        symbol [ next %next.1 174 12 16 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_44_175_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_15_175_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_15_175_8_if_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_171_8_175_8_if_end:
 [ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 177 8 ]
-        symbol [ WatchUi %tmp.16 177 8 15 ];
+        %tmp.26 = lgetv %next.1;
+        symbol [ next %tmp.26 177 25 29 ];
+        symbol [ _selectedIndex ? 177 8 22 ];
+        putv self :_selectedIndex %tmp.26;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 178 8 ]
+        %tmp.27 = "Ready";
+        symbol [ _statusTitle ? 178 8 20 ];
+        putv self :_statusTitle %tmp.27;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 179 8 ]
+        %tmp.28 = "";
+        symbol [ _statusDetail ? 179 8 21 ];
+        putv self :_statusDetail %tmp.28;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 180 8 ]
+        symbol [ WatchUi %tmp.29 180 8 15 ];
+        %tmp.29 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.30 180 16 29 ];
+        %tmp.30 = getv function %tmp.29 :requestUpdate;
+        invoke %tmp.29 %tmp.30();
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_165_52_181_4_stop:
+    }
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 183; @symbol_functiondef = [activateSelected,183,13,29]; ]
+    function activateSelected() as Void {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_183_40_188_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 184 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_184_8_186_8_if_stmt:
+        symbol [ _state %tmp.2 184 12 18 ];
+        %tmp.2 = getv ? :_state;
+        symbol [ STATE_SENDING %tmp.4 184 22 35 ];
+        %tmp.4 = getv ? :STATE_SENDING;
+        %tmp.5 = eq %tmp.2 %tmp.4;
+        bf %tmp.5 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_184_8_186_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_184_8_186_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_184_37_186_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 185 12 ]
+        ret ?;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_184_37_186_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_184_8_186_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_184_8_186_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 187 8 ]
+        %tmp.6 = self;
+        symbol [ _startRequest %tmp.7 187 8 21 ];
+        %tmp.7 = getv function %tmp.6 :_startRequest;
+        symbol [ _selectedIndex %tmp.9 187 22 36 ];
+        %tmp.9 = getv ? :_selectedIndex;
+        invoke %tmp.6 %tmp.7(%tmp.9);
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_183_40_188_4_stop:
+    }
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 190; @symbol_functiondef = [handleTap,190,13,22]; @symbol_param<0> = [x,190,23,24]; @symbol_param<0>_type<0> = [Number,190,28,34]; @symbol_param<1> = [y,190,36,37]; @symbol_param<1>_type<0> = [Number,190,41,47]; ]
+    function handleTap(x as Number, y as Number) as Void {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_190_57_202_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 191 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_191_8_193_8_if_stmt:
+        symbol [ _state %tmp.2 191 12 18 ];
+        %tmp.2 = getv ? :_state;
+        symbol [ STATE_SENDING %tmp.4 191 22 35 ];
+        %tmp.4 = getv ? :STATE_SENDING;
+        %tmp.5 = eq %tmp.2 %tmp.4;
+        bf %tmp.5 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_191_8_193_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_191_8_193_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_191_37_193_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 192 12 ]
+        ret ?;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_191_37_193_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_191_8_193_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_191_8_193_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 195 8 ]
+        for @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_test @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_incr @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_init:
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_begin" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_end" ]
+        %i.1 = local;
+        symbol [ i %i.1 195 17 18 ];
+        %tmp.6 = 0;
+        lputv %i.1 %tmp.6;
+        symbol [ i %i.1 195 17 18 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_test:
+        %tmp.7 = lgetv %i.1;
+        symbol [ i %tmp.7 195 24 25 ];
+        symbol [ _btnAreas %tmp.9 195 28 37 ];
+        %tmp.9 = getv ? :_btnAreas;
+        symbol [ size %tmp.10 195 38 42 ];
+        %tmp.10 = getv function %tmp.9 :size;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        %tmp.12 = lt %tmp.7 %tmp.11;
+        bf %tmp.12 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_begin:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_54_201_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 196 12 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_196_12_200_12_if_stmt:
+        %tmp.13 = self;
+        symbol [ _hit %tmp.14 196 16 20 ];
+        %tmp.14 = getv function %tmp.13 :_hit;
+        symbol [ _btnAreas %tmp.16 196 21 30 ];
+        %tmp.16 = getv ? :_btnAreas;
+        %tmp.17 = lgetv %i.1;
+        symbol [ i %tmp.17 196 31 32 ];
+        %tmp.18 = agetv %tmp.16 %tmp.17;
+        %tmp.19 = lgetv %x;
+        symbol [ x %tmp.19 196 35 36 ];
+        %tmp.20 = lgetv %y;
+        symbol [ y %tmp.20 196 38 39 ];
+        %tmp.21 = invoke %tmp.13 %tmp.14(%tmp.18, %tmp.19, %tmp.20);
+        bf %tmp.21 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_196_12_200_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_196_12_200_12_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_196_42_200_12_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 197 16 ]
+        %tmp.22 = lgetv %i.1;
+        symbol [ i %tmp.22 197 33 34 ];
+        symbol [ _selectedIndex ? 197 16 30 ];
+        putv self :_selectedIndex %tmp.22;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 198 16 ]
+        %tmp.23 = self;
+        symbol [ _startRequest %tmp.24 198 16 29 ];
+        %tmp.24 = getv function %tmp.23 :_startRequest;
+        %tmp.25 = lgetv %i.1;
+        symbol [ i %tmp.25 198 30 31 ];
+        invoke %tmp.23 %tmp.24(%tmp.25);
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 199 16 ]
+        ret ?;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_196_42_200_12_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_196_12_200_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_196_12_200_12_if_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_54_201_8_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_incr:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 195 ]
+        %tmp.26 = lgetv %i.1;
+        symbol [ i %tmp.26 195 46 47 ];
+        %tmp.27 = 1;
+        %tmp.28 = add %tmp.26 %tmp.27;
+        lputv %i.1 %tmp.28;
+        symbol [ i %i.1 195 46 47 ];
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_test;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_8_201_8_for_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_190_57_202_4_stop:
+    }
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 204; @symbol_functiondef = [_startRequest,204,13,26]; @symbol_param<0> = [index,204,27,32]; @symbol_param<0>_type<0> = [Number,204,36,42]; ]
+    function _startRequest(index as Number) as Void {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_52_236_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 205 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_52_236_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_52_236_4_stop" ]
+        %preset.1 = local;
+        symbol [ preset %preset.1 205 12 18 ];
+        symbol [ _presets %tmp.2 205 21 29 ];
+        %tmp.2 = getv ? :_presets;
+        %tmp.3 = lgetv %index;
+        symbol [ index %tmp.3 205 30 35 ];
+        %tmp.4 = agetv %tmp.2 %tmp.3;
+        lputv %preset.1 %tmp.4;
+        symbol [ preset %preset.1 205 12 18 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 207 8 ]
+        %tmp.5 = lgetv %preset.1;
+        symbol [ preset %tmp.5 207 26 32 ];
+        %tmp.7 = const :id;
+        symbol [ id %tmp.7 207 34 36 const ];
+        %tmp.8 = agetv %tmp.5 %tmp.7;
+        symbol [ _activePresetId ? 207 8 23 ];
+        putv self :_activePresetId %tmp.8;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 208 8 ]
+        symbol [ STATE_SENDING %tmp.10 208 17 30 ];
+        %tmp.10 = getv ? :STATE_SENDING;
+        symbol [ _state ? 208 8 14 ];
+        putv self :_state %tmp.10;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 209 8 ]
+        %tmp.11 = "Sending...";
+        symbol [ _statusTitle ? 209 8 20 ];
+        putv self :_statusTitle %tmp.11;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 210 8 ]
+        %tmp.12 = lgetv %preset.1;
+        symbol [ preset %tmp.12 210 24 30 ];
+        %tmp.14 = const :label;
+        symbol [ label %tmp.14 210 32 37 const ];
+        %tmp.15 = agetv %tmp.12 %tmp.14;
+        symbol [ _statusDetail ? 210 8 21 ];
+        putv self :_statusDetail %tmp.15;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 211 8 ]
+        symbol [ WatchUi %tmp.16 211 8 15 ];
         %tmp.16 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.17 177 16 29 ];
+        symbol [ requestUpdate %tmp.17 211 16 29 ];
         %tmp.17 = getv function %tmp.16 :requestUpdate;
         invoke %tmp.16 %tmp.17();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_173_32_178_4_stop:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 213 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_52_236_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_52_236_4_stop" ]
+        %options.2 = local;
+        symbol [ options %options.2 213 12 19 ];
+        %tmp.18 = newd 4;
+        %tmp.20 = const :method;
+        symbol [ method %tmp.20 214 13 19 const ];
+        %tmp.21 = lgetv %preset.1;
+        symbol [ preset %tmp.21 214 23 29 ];
+        %tmp.23 = const :method;
+        symbol [ method %tmp.23 214 31 37 const ];
+        %tmp.24 = agetv %tmp.21 %tmp.23;
+        %tmp.25 = dup %tmp.18;
+        %tmp.26 = aputv %tmp.25 %tmp.20 %tmp.24;
+        %tmp.28 = const :headers;
+        symbol [ headers %tmp.28 215 13 20 const ];
+        %tmp.29 = lgetv %preset.1;
+        symbol [ preset %tmp.29 215 24 30 ];
+        %tmp.31 = const :headers;
+        symbol [ headers %tmp.31 215 32 39 const ];
+        %tmp.32 = agetv %tmp.29 %tmp.31;
+        %tmp.33 = dup %tmp.26;
+        %tmp.34 = aputv %tmp.33 %tmp.28 %tmp.32;
+        %tmp.36 = const :responseType;
+        symbol [ responseType %tmp.36 216 13 25 const ];
+        symbol [ Communications %tmp.37 216 29 43 ];
+        %tmp.37 = getm $.Toybox.Communications;
+        symbol [ HTTP_RESPONSE_CONTENT_TYPE_JSON %tmp.38 216 44 75 ];
+        %tmp.38 = getv %tmp.37 :HTTP_RESPONSE_CONTENT_TYPE_JSON;
+        %tmp.39 = dup %tmp.34;
+        %tmp.40 = aputv %tmp.39 %tmp.36 %tmp.38;
+        %tmp.42 = const :context;
+        symbol [ context %tmp.42 217 13 20 const ];
+        %tmp.43 = lgetv %preset.1;
+        symbol [ preset %tmp.43 217 24 30 ];
+        %tmp.44 = dup %tmp.40;
+        %tmp.45 = aputv %tmp.44 %tmp.42 %tmp.43;
+        lputv %options.2 %tmp.45;
+        symbol [ options %options.2 213 12 19 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 220 8 ]
+        symbol [ System %tmp.46 220 8 14 ];
+        %tmp.46 = getm $.Toybox.System;
+        symbol [ println %tmp.47 220 15 22 ];
+        %tmp.47 = getv function %tmp.46 :println;
+        %tmp.48 = "[PASS] send id=";
+        %tmp.49 = lgetv %preset.1;
+        symbol [ preset %tmp.49 220 43 49 ];
+        %tmp.51 = const :id;
+        symbol [ id %tmp.51 220 51 53 const ];
+        %tmp.52 = agetv %tmp.49 %tmp.51;
+        %tmp.53 = add %tmp.48 %tmp.52;
+        %tmp.54 = " url=";
+        %tmp.55 = add %tmp.53 %tmp.54;
+        %tmp.56 = lgetv %preset.1;
+        symbol [ preset %tmp.56 220 67 73 ];
+        %tmp.58 = const :url;
+        symbol [ url %tmp.58 220 75 78 const ];
+        %tmp.59 = agetv %tmp.56 %tmp.58;
+        %tmp.60 = add %tmp.55 %tmp.59;
+        invoke %tmp.46 %tmp.47(%tmp.60);
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 221 8 ]
+        try @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_beginTry @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_endTry @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_catch @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_finally;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_beginTry:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_12_228_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 222 12 ]
+        symbol [ Communications %tmp.61 222 12 26 ];
+        %tmp.61 = getm $.Toybox.Communications;
+        symbol [ makeWebRequest %tmp.62 222 27 41 ];
+        %tmp.62 = getv function %tmp.61 :makeWebRequest;
+        %tmp.63 = lgetv %preset.1;
+        symbol [ preset %tmp.63 223 16 22 ];
+        %tmp.65 = const :url;
+        symbol [ url %tmp.65 223 24 27 const ];
+        %tmp.66 = agetv %tmp.63 %tmp.65;
+        %tmp.67 = self;
+        symbol [ _buildRequestBody %tmp.68 224 16 33 ];
+        %tmp.68 = getv function %tmp.67 :_buildRequestBody;
+        %tmp.69 = lgetv %preset.1;
+        symbol [ preset %tmp.69 224 34 40 ];
+        %tmp.70 = invoke %tmp.67 %tmp.68(%tmp.69);
+        %tmp.71 = lgetv %options.2;
+        symbol [ options %tmp.71 225 16 23 ];
+        %tmp.72 = self;
+        symbol [ method %tmp.73 226 16 22 ];
+        %tmp.73 = getv function %tmp.72 :method;
+        %tmp.75 = const :onWebResponse;
+        symbol [ onWebResponse %tmp.75 226 24 37 const ];
+        %tmp.76 = invoke %tmp.72 %tmp.73(%tmp.75);
+        invoke %tmp.61 %tmp.62(%tmp.66, %tmp.70, %tmp.71, %tmp.76);
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_12_228_8_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_endTry:
+        jsr @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_finally;
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_catch:
+        %tmp.77 = exception;
+        push %tmp.77;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 228 10 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_catch" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_228_10_235_8_end" ]
+        %ex.3 = local;
+        symbol [ ex %ex.3 228 17 19 ];
+        %tmp.78 = dup %tmp.77;
+        lputv %ex.3 %tmp.78;
+        symbol [ ex %ex.3 228 17 19 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_228_21_235_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 229 12 ]
+        symbol [ STATE_ERROR %tmp.80 229 21 32 ];
+        %tmp.80 = getv ? :STATE_ERROR;
+        symbol [ _state ? 229 12 18 ];
+        putv self :_state %tmp.80;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 230 12 ]
+        %tmp.81 = null;
+        symbol [ _activePresetId ? 230 12 27 ];
+        putv self :_activePresetId %tmp.81;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 231 12 ]
+        %tmp.82 = "Error";
+        symbol [ _statusTitle ? 231 12 24 ];
+        putv self :_statusTitle %tmp.82;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 232 12 ]
+        %tmp.83 = "Request failed";
+        symbol [ _statusDetail ? 232 12 25 ];
+        putv self :_statusDetail %tmp.83;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 233 12 ]
+        symbol [ System %tmp.84 233 12 18 ];
+        %tmp.84 = getm $.Toybox.System;
+        symbol [ println %tmp.85 233 19 26 ];
+        %tmp.85 = getv function %tmp.84 :println;
+        %tmp.86 = "[PASS] makeWebRequest exception: ";
+        %tmp.87 = lgetv %ex.3;
+        symbol [ ex %tmp.87 233 65 67 ];
+        symbol [ toString %tmp.88 233 68 76 ];
+        %tmp.88 = getv function %tmp.87 :toString;
+        %tmp.89 = invoke %tmp.87 %tmp.88();
+        %tmp.90 = add %tmp.86 %tmp.89;
+        invoke %tmp.84 %tmp.85(%tmp.90);
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 234 12 ]
+        symbol [ WatchUi %tmp.91 234 12 19 ];
+        %tmp.91 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.92 234 20 33 ];
+        %tmp.92 = getv function %tmp.91 :requestUpdate;
+        invoke %tmp.91 %tmp.92();
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_228_21_235_8_stop:
+        jsr @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_finally;
+        pop;
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_228_10_235_8_end:
+        try @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_catch @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_228_10_235_8_end @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_228_10_235_8_end @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_finally;
+        jsr @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_finally;
+        throw %tmp.77;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_finally:
+        jsrret;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_221_8_235_8_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_52_236_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 180; @symbol_functiondef = [doStop,180,13,19]; ]
-    function doStop() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_180_30_187_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 181 8 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_181_8_183_8_if_stmt:
-        symbol [ _state %tmp.2 181 12 18 ];
-        %tmp.2 = getv ? :_state;
-        symbol [ STATE_RUNNING %tmp.4 181 22 35 ];
-        %tmp.4 = getv ? :STATE_RUNNING;
-        %tmp.5 = eq %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_181_8_183_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_181_8_183_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_181_37_183_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 182 12 ]
-        symbol [ _elapsed %tmp.6 182 12 20 ];
-        %tmp.6 = getv self :_elapsed;
-        symbol [ System %tmp.7 182 24 30 ];
-        %tmp.7 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.8 182 31 39 ];
-        %tmp.8 = getv function %tmp.7 :getTimer;
-        %tmp.9 = invoke %tmp.7 %tmp.8();
-        symbol [ _startMs %tmp.11 182 44 52 ];
-        %tmp.11 = getv ? :_startMs;
-        %tmp.12 = sub %tmp.9 %tmp.11;
-        %tmp.13 = add %tmp.6 %tmp.12;
-        symbol [ _elapsed ? 182 12 20 ];
-        putv self :_elapsed dup %tmp.13;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_181_37_183_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_181_8_183_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_181_8_183_8_if_end:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 184 8 ]
-        symbol [ STATE_STOPPED %tmp.15 184 17 30 ];
-        %tmp.15 = getv ? :STATE_STOPPED;
-        symbol [ _state ? 184 8 14 ];
-        putv self :_state %tmp.15;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 185 8 ]
-        symbol [ _hwTimer %tmp.17 185 8 16 ];
-        %tmp.17 = getv ? :_hwTimer;
-        symbol [ stop %tmp.18 185 17 21 ];
-        %tmp.18 = getv function %tmp.17 :stop;
-        invoke %tmp.17 %tmp.18();
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 186 8 ]
-        symbol [ WatchUi %tmp.19 186 8 15 ];
-        %tmp.19 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.20 186 16 29 ];
-        %tmp.20 = getv function %tmp.19 :requestUpdate;
-        invoke %tmp.19 %tmp.20();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_180_30_187_4_stop:
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 238; @symbol_functiondef = [onWebResponse,238,13,26]; @symbol_param<0> = [responseCode,239,8,20]; @symbol_param<0>_type<0> = [Number,239,24,30]; @symbol_param<1> = [data,240,8,12]; @symbol_param<1>_type<0> = [Dictionary,240,16,26]; @symbol_param<1>_type<1> = [String,240,30,36]; @symbol_param<1>_type<2> = [PersistedContent,240,40,56]; @symbol_param<1>_type<3> = [Iterator,240,57,65]; @symbol_param<2> = [context,241,8,15]; @symbol_param<2>_type<0> = [Object,241,19,25]; ]
+    function onWebResponse(responseCode as Number, data as Dictionary or String or PersistedContent.Iterator or Null, context as Object) as Void {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_242_14_262_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 243 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_242_14_262_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_242_14_262_4_stop" ]
+        %presetLabel.1 = local;
+        symbol [ presetLabel %presetLabel.1 243 12 23 ];
+        %tmp.1 = "Request";
+        lputv %presetLabel.1 %tmp.1;
+        symbol [ presetLabel %presetLabel.1 243 12 23 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 244 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_8_246_8_if_stmt:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_12_244_44_begin:
+        %tmp.2 = lgetv %context;
+        symbol [ context %tmp.2 244 12 19 ];
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_8_246_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_31_244_44_true:
+        %tmp.5 = lgetv %context;
+        symbol [ context %tmp.5 244 31 38 ];
+        %tmp.6 = as %tmp.5 { (!Null) };
+        %tmp.8 = const :label;
+        symbol [ label %tmp.8 244 44 49 const ];
+        %tmp.9 = canhazplz %tmp.6 %tmp.8;
+        push %tmp.9;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_31_244_44_end:
+        %tmp.10 = phi [%tmp.4 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_12_244_44_begin] [%tmp.9 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_31_244_44_true] [%tmp.10 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_31_244_44_end];
+        bf %tmp.10 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_8_246_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_8_246_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_51_246_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 245 12 ]
+        %tmp.11 = lgetv %context;
+        symbol [ context %tmp.11 245 26 33 ];
+        %tmp.12 = as %tmp.11 { (interface { var label; }) && (!Null) };
+        %tmp.14 = const :label;
+        symbol [ label %tmp.14 245 35 40 const ];
+        %tmp.15 = agetv %tmp.12 %tmp.14;
+        lputv %presetLabel.1 %tmp.15;
+        symbol [ presetLabel %presetLabel.1 245 12 23 ];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_51_246_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_8_246_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_244_8_246_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 248 8 ]
+        symbol [ System %tmp.16 248 8 14 ];
+        %tmp.16 = getm $.Toybox.System;
+        symbol [ println %tmp.17 248 15 22 ];
+        %tmp.17 = getv function %tmp.16 :println;
+        %tmp.18 = "[PASS] response code=";
+        %tmp.19 = lgetv %responseCode;
+        symbol [ responseCode %tmp.19 248 49 61 ];
+        symbol [ format %tmp.20 248 62 68 ];
+        %tmp.20 = getv function %tmp.19 :format;
+        %tmp.21 = "%d";
+        %tmp.22 = invoke %tmp.19 %tmp.20(%tmp.21);
+        %tmp.23 = add %tmp.18 %tmp.22;
+        invoke %tmp.16 %tmp.17(%tmp.23);
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 250 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_8_258_8_if_stmt:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_12_250_75_begin:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_12_250_50_begin:
+        %tmp.24 = lgetv %responseCode;
+        symbol [ responseCode %tmp.24 250 12 24 ];
+        %tmp.25 = 200;
+        %tmp.26 = gte %tmp.24 %tmp.25;
+        bf %tmp.26 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_8_258_8_if_else_false;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_35_250_50_true:
+        %tmp.27 = lgetv %responseCode;
+        symbol [ responseCode %tmp.27 250 35 47 ];
+        %tmp.28 = 300;
+        %tmp.29 = lt %tmp.27 %tmp.28;
+        push %tmp.29;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_35_250_50_end:
+        %tmp.30 = phi [%tmp.26 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_12_250_50_begin] [%tmp.29 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_35_250_50_true] [%tmp.30 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_35_250_50_end];
+        bf %tmp.30 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_8_258_8_if_else_false;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_57_250_75_true:
+        %tmp.31 = self;
+        symbol [ _isApiSuccess %tmp.32 250 57 70 ];
+        %tmp.32 = getv function %tmp.31 :_isApiSuccess;
+        %tmp.33 = lgetv %data;
+        symbol [ data %tmp.33 250 71 75 ];
+        %tmp.34 = invoke %tmp.31 %tmp.32(%tmp.33);
+        push %tmp.34;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_57_250_75_end:
+        %tmp.35 = phi [%tmp.30 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_12_250_75_begin] [%tmp.34 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_57_250_75_true] [%tmp.35 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_57_250_75_end];
+        bf %tmp.35 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_8_258_8_if_else_false;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_8_258_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_78_254_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 251 12 ]
+        symbol [ STATE_SUCCESS %tmp.37 251 21 34 ];
+        %tmp.37 = getv ? :STATE_SUCCESS;
+        symbol [ _state ? 251 12 18 ];
+        putv self :_state %tmp.37;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 252 12 ]
+        %tmp.38 = "Success";
+        symbol [ _statusTitle ? 252 12 24 ];
+        putv self :_statusTitle %tmp.38;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 253 12 ]
+        %tmp.39 = lgetv %presetLabel.1;
+        symbol [ presetLabel %tmp.39 253 28 39 ];
+        %tmp.40 = " sent";
+        %tmp.41 = add %tmp.39 %tmp.40;
+        symbol [ _statusDetail ? 253 12 25 ];
+        putv self :_statusDetail %tmp.41;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_78_254_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_8_258_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_8_258_8_if_else_false:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_254_15_258_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 255 12 ]
+        symbol [ STATE_ERROR %tmp.43 255 21 32 ];
+        %tmp.43 = getv ? :STATE_ERROR;
+        symbol [ _state ? 255 12 18 ];
+        putv self :_state %tmp.43;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 256 12 ]
+        %tmp.44 = "Error";
+        symbol [ _statusTitle ? 256 12 24 ];
+        putv self :_statusTitle %tmp.44;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 257 12 ]
+        %tmp.45 = self;
+        symbol [ _normalizeError %tmp.46 257 28 43 ];
+        %tmp.46 = getv function %tmp.45 :_normalizeError;
+        %tmp.47 = lgetv %responseCode;
+        symbol [ responseCode %tmp.47 257 44 56 ];
+        %tmp.48 = lgetv %data;
+        symbol [ data %tmp.48 257 58 62 ];
+        %tmp.49 = invoke %tmp.45 %tmp.46(%tmp.47, %tmp.48);
+        symbol [ _statusDetail ? 257 12 25 ];
+        putv self :_statusDetail %tmp.49;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_254_15_258_8_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_250_8_258_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 260 8 ]
+        %tmp.50 = null;
+        symbol [ _activePresetId ? 260 8 23 ];
+        putv self :_activePresetId %tmp.50;
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 261 8 ]
+        symbol [ WatchUi %tmp.51 261 8 15 ];
+        %tmp.51 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.52 261 16 29 ];
+        %tmp.52 = getv function %tmp.51 :requestUpdate;
+        invoke %tmp.51 %tmp.52();
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_242_14_262_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 189; @symbol_functiondef = [doReset,189,13,20]; ]
-    function doReset() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_189_31_193_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 190 8 ]
-        %tmp.1 = 0;
-        symbol [ _elapsed ? 190 8 16 ];
-        putv self :_elapsed %tmp.1;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 191 8 ]
-        symbol [ STATE_IDLE %tmp.3 191 19 29 ];
-        %tmp.3 = getv ? :STATE_IDLE;
-        symbol [ _state ? 191 8 14 ];
-        putv self :_state %tmp.3;
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 192 8 ]
-        symbol [ WatchUi %tmp.4 192 8 15 ];
-        %tmp.4 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.5 192 16 29 ];
-        %tmp.5 = getv function %tmp.4 :requestUpdate;
-        invoke %tmp.4 %tmp.5();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_189_31_193_4_stop:
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 264; @symbol_functiondef = [_isApiSuccess,264,21,34]; @symbol_param<0> = [data,264,35,39]; @symbol_return<0> = [Boolean,264,44,51]; ]
+    private
+    function _isApiSuccess(data) as Boolean {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_264_52_274_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 265 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_265_8_267_8_if_stmt:
+        %tmp.1 = lgetv %data;
+        symbol [ data %tmp.1 265 12 16 ];
+        %tmp.2 = null;
+        %tmp.3 = eq %tmp.1 %tmp.2;
+        bf %tmp.3 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_265_8_267_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_265_8_267_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_265_26_267_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 266 12 ]
+        %tmp.4 = true;
+        ret %tmp.4;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_265_26_267_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_265_8_267_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_265_8_267_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 268 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_268_8_272_8_if_stmt:
+        %tmp.5 = lgetv %data;
+        symbol [ data %tmp.5 268 12 16 ];
+        symbol [ Dictionary %tmp.7 268 28 38 ];
+        %tmp.7 = getv ? :Dictionary;
+        %tmp.8 = isa %tmp.5 %tmp.7;
+        bf %tmp.8 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_268_8_272_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_268_8_272_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_268_40_272_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 269 12 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_12_271_12_if_stmt:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_16_269_41_begin:
+        %tmp.9 = lgetv %data;
+        symbol [ data %tmp.9 269 16 20 ];
+        %tmp.10 = as %tmp.9 { (Dictionary) };
+        %tmp.12 = const :ok;
+        symbol [ ok %tmp.12 269 26 28 const ];
+        %tmp.13 = canhazplz %tmp.10 %tmp.12;
+        bf %tmp.13 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_12_271_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_32_269_41_true:
+        %tmp.14 = lgetv %data;
+        symbol [ data %tmp.14 269 33 37 ];
+        %tmp.15 = as %tmp.14 { (interface { var ok; }) && (Dictionary) };
+        %tmp.17 = const :ok;
+        symbol [ ok %tmp.17 269 39 41 const ];
+        %tmp.18 = agetv %tmp.15 %tmp.17;
+        %tmp.19 = not %tmp.18;
+        push %tmp.19;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_32_269_41_end:
+        %tmp.20 = phi [%tmp.13 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_16_269_41_begin] [%tmp.19 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_32_269_41_true] [%tmp.20 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_32_269_41_end];
+        bf %tmp.20 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_12_271_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_12_271_12_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_44_271_12_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 270 16 ]
+        %tmp.21 = false;
+        ret %tmp.21;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_44_271_12_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_12_271_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_269_12_271_12_if_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_268_40_272_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_268_8_272_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_268_8_272_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 273 8 ]
+        %tmp.22 = true;
+        ret %tmp.22;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_264_52_274_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 195; @symbol_functiondef = [onTick,195,13,19]; ]
-    function onTick() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_30_197_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 196 8 ]
-        symbol [ WatchUi %tmp.1 196 8 15 ];
-        %tmp.1 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.2 196 16 29 ];
-        %tmp.2 = getv function %tmp.1 :requestUpdate;
-        invoke %tmp.1 %tmp.2();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_195_30_197_4_stop:
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 276; @symbol_functiondef = [_buildRequestBody,276,21,38]; @symbol_param<0> = [preset,276,39,45]; @symbol_param<0>_type<0> = [Dictionary,276,49,59]; @symbol_return<0> = [Dictionary,276,64,74]; ]
+    private
+    function _buildRequestBody(preset as Dictionary) as Dictionary {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_276_75_284_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 277 8 ]
+        [ "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_276_75_284_4_start" "_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_276_75_284_4_stop" ]
+        %body.1 = local;
+        symbol [ body %body.1 277 12 16 ];
+        %tmp.1 = newd 4;
+        %tmp.2 = "arriveDate";
+        symbol [ Time %tmp.3 278 28 32 ];
+        %tmp.3 = getm $.Toybox.Time;
+        symbol [ now %tmp.4 278 33 36 ];
+        %tmp.4 = getv function %tmp.3 :now;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        symbol [ value %tmp.6 278 39 44 ];
+        %tmp.6 = getv function %tmp.5 :value;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        %tmp.8 = dup %tmp.1;
+        %tmp.9 = aputv %tmp.8 %tmp.2 %tmp.7;
+        %tmp.10 = "passes";
+        %tmp.11 = lgetv %preset;
+        symbol [ preset %tmp.11 279 24 30 ];
+        %tmp.13 = const :body;
+        symbol [ body %tmp.13 279 32 36 const ];
+        %tmp.14 = agetv %tmp.11 %tmp.13;
+        %tmp.15 = "passes";
+        %tmp.16 = agetv %tmp.14 %tmp.15;
+        %tmp.17 = dup %tmp.9;
+        %tmp.18 = aputv %tmp.17 %tmp.10 %tmp.16;
+        %tmp.19 = "type";
+        %tmp.20 = lgetv %preset;
+        symbol [ preset %tmp.20 280 22 28 ];
+        %tmp.22 = const :body;
+        symbol [ body %tmp.22 280 30 34 const ];
+        %tmp.23 = agetv %tmp.20 %tmp.22;
+        %tmp.24 = "type";
+        %tmp.25 = agetv %tmp.23 %tmp.24;
+        %tmp.26 = dup %tmp.18;
+        %tmp.27 = aputv %tmp.26 %tmp.19 %tmp.25;
+        %tmp.28 = "subType";
+        %tmp.29 = lgetv %preset;
+        symbol [ preset %tmp.29 281 25 31 ];
+        %tmp.31 = const :body;
+        symbol [ body %tmp.31 281 33 37 const ];
+        %tmp.32 = agetv %tmp.29 %tmp.31;
+        %tmp.33 = "subType";
+        %tmp.34 = agetv %tmp.32 %tmp.33;
+        %tmp.35 = dup %tmp.27;
+        %tmp.36 = aputv %tmp.35 %tmp.28 %tmp.34;
+        lputv %body.1 %tmp.36;
+        symbol [ body %body.1 277 12 16 ];
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 283 8 ]
+        %tmp.37 = lgetv %body.1;
+        symbol [ body %tmp.37 283 15 19 ];
+        ret %tmp.37;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_276_75_284_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 201; @symbol_functiondef = [handleTap,201,13,22]; @symbol_param<0> = [x,201,23,24]; @symbol_param<0>_type<0> = [Number,201,28,34]; @symbol_param<1> = [y,201,36,37]; @symbol_param<1>_type<0> = [Number,201,41,47]; ]
-    function handleTap(x as Number, y as Number) as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_201_57_213_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 202 8 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_202_8_212_8_if_stmt:
-        symbol [ _state %tmp.2 202 12 18 ];
-        %tmp.2 = getv ? :_state;
-        symbol [ STATE_IDLE %tmp.4 202 22 32 ];
-        %tmp.4 = getv ? :STATE_IDLE;
-        %tmp.5 = eq %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_202_8_212_8_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_202_8_212_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_202_34_204_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 203 12 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_203_12_203_53_if_stmt:
-        %tmp.6 = self;
-        symbol [ _hit %tmp.7 203 16 20 ];
-        %tmp.7 = getv function %tmp.6 :_hit;
-        symbol [ _btnSingle %tmp.9 203 21 31 ];
-        %tmp.9 = getv ? :_btnSingle;
-        %tmp.10 = lgetv %x;
-        symbol [ x %tmp.10 203 33 34 ];
-        %tmp.11 = lgetv %y;
-        symbol [ y %tmp.11 203 36 37 ];
-        %tmp.12 = invoke %tmp.6 %tmp.7(%tmp.9, %tmp.10, %tmp.11);
-        bf %tmp.12 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_203_12_203_53_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_203_12_203_53_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_203_40_203_53_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 203 42 ]
-        %tmp.13 = self;
-        symbol [ doStart %tmp.14 203 42 49 ];
-        %tmp.14 = getv function %tmp.13 :doStart;
-        invoke %tmp.13 %tmp.14();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_203_40_203_53_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_203_12_203_53_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_203_12_203_53_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_202_34_204_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_202_8_212_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_202_8_212_8_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 204 15 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_15_212_8_if_stmt:
-        symbol [ _state %tmp.16 204 19 25 ];
-        %tmp.16 = getv ? :_state;
-        symbol [ STATE_RUNNING %tmp.18 204 29 42 ];
-        %tmp.18 = getv ? :STATE_RUNNING;
-        %tmp.19 = eq %tmp.16 %tmp.18;
-        bf %tmp.19 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_15_212_8_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_15_212_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_44_207_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 205 12 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_205_12_205_50_if_stmt:
-        %tmp.20 = self;
-        symbol [ _hit %tmp.21 205 16 20 ];
-        %tmp.21 = getv function %tmp.20 :_hit;
-        symbol [ _btnTop %tmp.23 205 21 28 ];
-        %tmp.23 = getv ? :_btnTop;
-        %tmp.24 = lgetv %x;
-        symbol [ x %tmp.24 205 30 31 ];
-        %tmp.25 = lgetv %y;
-        symbol [ y %tmp.25 205 33 34 ];
-        %tmp.26 = invoke %tmp.20 %tmp.21(%tmp.23, %tmp.24, %tmp.25);
-        bf %tmp.26 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_205_12_205_50_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_205_12_205_50_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_205_37_205_50_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 205 39 ]
-        %tmp.27 = self;
-        symbol [ doPause %tmp.28 205 39 46 ];
-        %tmp.28 = getv function %tmp.27 :doPause;
-        invoke %tmp.27 %tmp.28();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_205_37_205_50_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_205_12_205_50_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_205_12_205_50_if_end:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 206 12 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_206_12_206_50_if_stmt:
-        %tmp.29 = self;
-        symbol [ _hit %tmp.30 206 16 20 ];
-        %tmp.30 = getv function %tmp.29 :_hit;
-        symbol [ _btnBot %tmp.32 206 21 28 ];
-        %tmp.32 = getv ? :_btnBot;
-        %tmp.33 = lgetv %x;
-        symbol [ x %tmp.33 206 30 31 ];
-        %tmp.34 = lgetv %y;
-        symbol [ y %tmp.34 206 33 34 ];
-        %tmp.35 = invoke %tmp.29 %tmp.30(%tmp.32, %tmp.33, %tmp.34);
-        bf %tmp.35 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_206_12_206_50_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_206_12_206_50_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_206_37_206_50_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 206 39 ]
-        %tmp.36 = self;
-        symbol [ doStop %tmp.37 206 39 45 ];
-        %tmp.37 = getv function %tmp.36 :doStop;
-        invoke %tmp.36 %tmp.37();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_206_37_206_50_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_206_12_206_50_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_206_12_206_50_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_44_207_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_15_212_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_15_212_8_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 207 15 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_207_15_212_8_if_stmt:
-        symbol [ _state %tmp.39 207 19 25 ];
-        %tmp.39 = getv ? :_state;
-        symbol [ STATE_PAUSED %tmp.41 207 29 41 ];
-        %tmp.41 = getv ? :STATE_PAUSED;
-        %tmp.42 = eq %tmp.39 %tmp.41;
-        bf %tmp.42 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_207_15_212_8_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_207_15_212_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_207_43_210_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 208 12 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_208_12_208_51_if_stmt:
-        %tmp.43 = self;
-        symbol [ _hit %tmp.44 208 16 20 ];
-        %tmp.44 = getv function %tmp.43 :_hit;
-        symbol [ _btnTop %tmp.46 208 21 28 ];
-        %tmp.46 = getv ? :_btnTop;
-        %tmp.47 = lgetv %x;
-        symbol [ x %tmp.47 208 30 31 ];
-        %tmp.48 = lgetv %y;
-        symbol [ y %tmp.48 208 33 34 ];
-        %tmp.49 = invoke %tmp.43 %tmp.44(%tmp.46, %tmp.47, %tmp.48);
-        bf %tmp.49 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_208_12_208_51_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_208_12_208_51_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_208_37_208_51_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 208 39 ]
-        %tmp.50 = self;
-        symbol [ doResume %tmp.51 208 39 47 ];
-        %tmp.51 = getv function %tmp.50 :doResume;
-        invoke %tmp.50 %tmp.51();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_208_37_208_51_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_208_12_208_51_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_208_12_208_51_if_end:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 209 12 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_209_12_209_51_if_stmt:
-        %tmp.52 = self;
-        symbol [ _hit %tmp.53 209 16 20 ];
-        %tmp.53 = getv function %tmp.52 :_hit;
-        symbol [ _btnBot %tmp.55 209 21 28 ];
-        %tmp.55 = getv ? :_btnBot;
-        %tmp.56 = lgetv %x;
-        symbol [ x %tmp.56 209 30 31 ];
-        %tmp.57 = lgetv %y;
-        symbol [ y %tmp.57 209 33 34 ];
-        %tmp.58 = invoke %tmp.52 %tmp.53(%tmp.55, %tmp.56, %tmp.57);
-        bf %tmp.58 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_209_12_209_51_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_209_12_209_51_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_209_37_209_51_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 209 39 ]
-        %tmp.59 = self;
-        symbol [ doStop %tmp.60 209 39 45 ];
-        %tmp.60 = getv function %tmp.59 :doStop;
-        invoke %tmp.59 %tmp.60();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_209_37_209_51_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_209_12_209_51_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_209_12_209_51_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_207_43_210_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_207_15_212_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_207_15_212_8_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 210 15 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_210_15_212_8_if_stmt:
-        symbol [ _state %tmp.62 210 19 25 ];
-        %tmp.62 = getv ? :_state;
-        symbol [ STATE_STOPPED %tmp.64 210 29 42 ];
-        %tmp.64 = getv ? :STATE_STOPPED;
-        %tmp.65 = eq %tmp.62 %tmp.64;
-        bf %tmp.65 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_210_15_212_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_210_15_212_8_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_210_44_212_8_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 211 12 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_211_12_211_53_if_stmt:
-        %tmp.66 = self;
-        symbol [ _hit %tmp.67 211 16 20 ];
-        %tmp.67 = getv function %tmp.66 :_hit;
-        symbol [ _btnSingle %tmp.69 211 21 31 ];
-        %tmp.69 = getv ? :_btnSingle;
-        %tmp.70 = lgetv %x;
-        symbol [ x %tmp.70 211 33 34 ];
-        %tmp.71 = lgetv %y;
-        symbol [ y %tmp.71 211 36 37 ];
-        %tmp.72 = invoke %tmp.66 %tmp.67(%tmp.69, %tmp.70, %tmp.71);
-        bf %tmp.72 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_211_12_211_53_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_211_12_211_53_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_211_40_211_53_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 211 42 ]
-        %tmp.73 = self;
-        symbol [ doReset %tmp.74 211 42 49 ];
-        %tmp.74 = getv function %tmp.73 :doReset;
-        invoke %tmp.73 %tmp.74();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_211_40_211_53_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_211_12_211_53_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_211_12_211_53_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_210_44_212_8_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_210_15_212_8_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_210_15_212_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_207_15_212_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_204_15_212_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_202_8_212_8_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_201_57_213_4_stop:
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 286; @symbol_functiondef = [_normalizeError,286,21,36]; @symbol_param<0> = [responseCode,286,37,49]; @symbol_param<0>_type<0> = [Number,286,53,59]; @symbol_param<1> = [data,286,61,65]; @symbol_return<0> = [String,286,70,76]; ]
+    private
+    function _normalizeError(responseCode as Number, data) as String {
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_286_77_304_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 287 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_8_289_8_if_stmt:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_12_287_51_begin:
+        %tmp.1 = lgetv %responseCode;
+        symbol [ responseCode %tmp.1 287 12 24 ];
+        %tmp.2 = 401;
+        %tmp.3 = eq %tmp.1 %tmp.2;
+        bt %tmp.3 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_8_289_8_if_true;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_35_287_51_false:
+        %tmp.4 = lgetv %responseCode;
+        symbol [ responseCode %tmp.4 287 35 47 ];
+        %tmp.5 = 403;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        push %tmp.6;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_35_287_51_end:
+        %tmp.7 = phi [%tmp.3 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_12_287_51_begin] [%tmp.6 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_35_287_51_false] [%tmp.7 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_35_287_51_end];
+        bf %tmp.7 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_8_289_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_8_289_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_56_289_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 288 12 ]
+        %tmp.8 = "Auth expired";
+        ret %tmp.8;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_56_289_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_8_289_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_287_8_289_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 290 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_290_8_292_8_if_stmt:
+        %tmp.9 = lgetv %responseCode;
+        symbol [ responseCode %tmp.9 290 12 24 ];
+        %tmp.10 = 500;
+        %tmp.11 = gte %tmp.9 %tmp.10;
+        bf %tmp.11 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_290_8_292_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_290_8_292_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_290_33_292_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 291 12 ]
+        %tmp.12 = "Server error";
+        ret %tmp.12;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_290_33_292_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_290_8_292_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_290_8_292_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 293 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_293_8_295_8_if_stmt:
+        %tmp.13 = lgetv %responseCode;
+        symbol [ responseCode %tmp.13 293 12 24 ];
+        %tmp.14 = 0;
+        %tmp.15 = lte %tmp.13 %tmp.14;
+        bf %tmp.15 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_293_8_295_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_293_8_295_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_293_31_295_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 294 12 ]
+        %tmp.16 = "No connection";
+        ret %tmp.16;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_293_31_295_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_293_8_295_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_293_8_295_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 297 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_297_8_301_8_if_stmt:
+        %tmp.17 = lgetv %data;
+        symbol [ data %tmp.17 297 12 16 ];
+        symbol [ Dictionary %tmp.19 297 28 38 ];
+        %tmp.19 = getv ? :Dictionary;
+        %tmp.20 = isa %tmp.17 %tmp.19;
+        bf %tmp.20 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_297_8_301_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_297_8_301_8_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_297_40_301_8_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 298 12 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_298_12_300_12_if_stmt:
+        %tmp.21 = lgetv %data;
+        symbol [ data %tmp.21 298 16 20 ];
+        %tmp.22 = as %tmp.21 { (Dictionary) };
+        %tmp.24 = const :error;
+        symbol [ error %tmp.24 298 26 31 const ];
+        %tmp.25 = canhazplz %tmp.22 %tmp.24;
+        bf %tmp.25 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_298_12_300_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_298_12_300_12_if_true:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_298_33_300_12_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 299 16 ]
+        %tmp.26 = lgetv %data;
+        symbol [ data %tmp.26 299 23 27 ];
+        %tmp.27 = as %tmp.26 { (Dictionary) && (interface { var error; }) };
+        %tmp.29 = const :error;
+        symbol [ error %tmp.29 299 29 34 const ];
+        %tmp.30 = agetv %tmp.27 %tmp.29;
+        symbol [ toString %tmp.31 299 36 44 ];
+        %tmp.31 = getv function %tmp.30 :toString;
+        %tmp.32 = invoke %tmp.30 %tmp.31();
+        ret %tmp.32;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_298_33_300_12_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_298_12_300_12_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_298_12_300_12_if_end:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_297_40_301_8_stop:
+        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_297_8_301_8_if_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_297_8_301_8_if_end:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 303 8 ]
+        %tmp.33 = "HTTP ";
+        %tmp.34 = lgetv %responseCode;
+        symbol [ responseCode %tmp.34 303 25 37 ];
+        symbol [ format %tmp.35 303 38 44 ];
+        %tmp.35 = getv function %tmp.34 :format;
+        %tmp.36 = "%d";
+        %tmp.37 = invoke %tmp.34 %tmp.35(%tmp.36);
+        %tmp.38 = add %tmp.33 %tmp.37;
+        ret %tmp.38;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_286_77_304_4_stop:
     }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 216; @symbol_functiondef = [handleMainKey,216,13,26]; ]
-    function handleMainKey() as Void {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_216_37_221_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 217 8 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_217_8_220_56_if_stmt:
-        symbol [ _state %tmp.2 217 17 23 ];
-        %tmp.2 = getv ? :_state;
-        symbol [ STATE_IDLE %tmp.4 217 27 37 ];
-        %tmp.4 = getv ? :STATE_IDLE;
-        %tmp.5 = eq %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_217_8_220_56_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_217_8_220_56_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_217_42_217_56_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 217 44 ]
-        %tmp.6 = self;
-        symbol [ doStart %tmp.7 217 44 51 ];
-        %tmp.7 = getv function %tmp.6 :doStart;
-        invoke %tmp.6 %tmp.7();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_217_42_217_56_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_217_8_220_56_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_217_8_220_56_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 218 13 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_218_13_220_56_if_stmt:
-        symbol [ _state %tmp.9 218 17 23 ];
-        %tmp.9 = getv ? :_state;
-        symbol [ STATE_RUNNING %tmp.11 218 27 40 ];
-        %tmp.11 = getv ? :STATE_RUNNING;
-        %tmp.12 = eq %tmp.9 %tmp.11;
-        bf %tmp.12 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_218_13_220_56_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_218_13_220_56_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_218_42_218_56_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 218 44 ]
-        %tmp.13 = self;
-        symbol [ doPause %tmp.14 218 44 51 ];
-        %tmp.14 = getv function %tmp.13 :doPause;
-        invoke %tmp.13 %tmp.14();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_218_42_218_56_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_218_13_220_56_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_218_13_220_56_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 219 13 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_219_13_220_56_if_stmt:
-        symbol [ _state %tmp.16 219 17 23 ];
-        %tmp.16 = getv ? :_state;
-        symbol [ STATE_PAUSED %tmp.18 219 27 39 ];
-        %tmp.18 = getv ? :STATE_PAUSED;
-        %tmp.19 = eq %tmp.16 %tmp.18;
-        bf %tmp.19 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_219_13_220_56_if_false;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_219_13_220_56_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_219_42_219_56_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 219 44 ]
-        %tmp.20 = self;
-        symbol [ doResume %tmp.21 219 44 52 ];
-        %tmp.21 = getv function %tmp.20 :doResume;
-        invoke %tmp.20 %tmp.21();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_219_42_219_56_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_219_13_220_56_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_219_13_220_56_if_false:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 220 13 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_220_13_220_56_if_stmt:
-        symbol [ _state %tmp.23 220 17 23 ];
-        %tmp.23 = getv ? :_state;
-        symbol [ STATE_STOPPED %tmp.25 220 27 40 ];
-        %tmp.25 = getv ? :STATE_STOPPED;
-        %tmp.26 = eq %tmp.23 %tmp.25;
-        bf %tmp.26 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_220_13_220_56_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_220_13_220_56_if_true:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_220_42_220_56_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 220 44 ]
-        %tmp.27 = self;
-        symbol [ doReset %tmp.28 220 44 51 ];
-        %tmp.28 = getv function %tmp.27 :doReset;
-        invoke %tmp.27 %tmp.28();
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_220_42_220_56_stop:
-        goto @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_220_13_220_56_if_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_220_13_220_56_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_219_13_220_56_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_218_13_220_56_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_217_8_220_56_if_end:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_216_37_221_4_stop:
-    }
-    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 223; @symbol_functiondef = [_hit,223,21,25]; @symbol_param<0> = [area,223,26,30]; @symbol_param<0>_type<0> = [Array,223,34,39]; @symbol_param<1> = [x,223,41,42]; @symbol_param<1>_type<0> = [Number,223,46,52]; @symbol_param<2> = [y,223,54,55]; @symbol_param<2>_type<0> = [Number,223,59,65]; @symbol_return<0> = [Boolean,223,70,77]; ]
+    [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 306; @symbol_functiondef = [_hit,306,21,25]; @symbol_param<0> = [area,306,26,30]; @symbol_param<0>_type<0> = [Array,306,34,39]; @symbol_param<1> = [x,306,41,42]; @symbol_param<1>_type<0> = [Number,306,46,52]; @symbol_param<2> = [y,306,54,55]; @symbol_param<2>_type<0> = [Number,306,59,65]; @symbol_return<0> = [Boolean,306,70,77]; ]
     private
     function _hit(area as Array, x as Number, y as Number) as Boolean {
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_223_78_226_4_start:
-[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 224 8 ]
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_16_225_53_begin:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_16_225_27_begin:
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_16_224_53_begin:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_306_78_309_4_start:
+[ "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc" 307 8 ]
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_16_308_53_begin:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_16_308_27_begin:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_16_307_53_begin:
         %tmp.1 = lgetv %x;
-        symbol [ x %tmp.1 224 16 17 ];
+        symbol [ x %tmp.1 307 16 17 ];
         %tmp.2 = lgetv %area;
-        symbol [ area %tmp.2 224 21 25 ];
+        symbol [ area %tmp.2 307 21 25 ];
         %tmp.3 = 0;
         %tmp.4 = agetv %tmp.2 %tmp.3;
         %tmp.5 = gte %tmp.1 %tmp.4;
         %tmp.6 = dup %tmp.5;
-        bf %tmp.6 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_32_224_53_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_32_224_53_true:
+        bf %tmp.6 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_32_307_53_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_32_307_53_true:
         %tmp.7 = lgetv %x;
-        symbol [ x %tmp.7 224 32 33 ];
+        symbol [ x %tmp.7 307 32 33 ];
         %tmp.8 = lgetv %area;
-        symbol [ area %tmp.8 224 37 41 ];
+        symbol [ area %tmp.8 307 37 41 ];
         %tmp.9 = 0;
         %tmp.10 = agetv %tmp.8 %tmp.9;
         %tmp.11 = lgetv %area;
-        symbol [ area %tmp.11 224 47 51 ];
+        symbol [ area %tmp.11 307 47 51 ];
         %tmp.12 = 2;
         %tmp.13 = agetv %tmp.11 %tmp.12;
         %tmp.14 = add %tmp.10 %tmp.13;
         %tmp.15 = lte %tmp.7 %tmp.14;
         %tmp.16 = and %tmp.5 %tmp.15;
         push %tmp.16;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_32_224_53_end:
-        %tmp.17 = phi [%tmp.6 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_16_224_53_begin] [%tmp.16 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_32_224_53_true] [%tmp.17 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_32_224_53_end];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_32_307_53_end:
+        %tmp.17 = phi [%tmp.6 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_16_307_53_begin] [%tmp.16 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_32_307_53_true] [%tmp.17 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_32_307_53_end];
         %tmp.18 = dup %tmp.17;
-        bf %tmp.18 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_16_225_27_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_16_225_27_true:
+        bf %tmp.18 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_16_308_27_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_16_308_27_true:
         %tmp.19 = lgetv %y;
-        symbol [ y %tmp.19 225 16 17 ];
+        symbol [ y %tmp.19 308 16 17 ];
         %tmp.20 = lgetv %area;
-        symbol [ area %tmp.20 225 21 25 ];
+        symbol [ area %tmp.20 308 21 25 ];
         %tmp.21 = 1;
         %tmp.22 = agetv %tmp.20 %tmp.21;
         %tmp.23 = gte %tmp.19 %tmp.22;
         %tmp.24 = and %tmp.17 %tmp.23;
         push %tmp.24;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_16_225_27_end:
-        %tmp.25 = phi [%tmp.18 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_16_225_27_begin] [%tmp.24 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_16_225_27_true] [%tmp.25 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_16_225_27_end];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_16_308_27_end:
+        %tmp.25 = phi [%tmp.18 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_16_308_27_begin] [%tmp.24 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_16_308_27_true] [%tmp.25 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_16_308_27_end];
         %tmp.26 = dup %tmp.25;
-        bf %tmp.26 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_32_225_53_end;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_32_225_53_true:
+        bf %tmp.26 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_32_308_53_end;
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_32_308_53_true:
         %tmp.27 = lgetv %y;
-        symbol [ y %tmp.27 225 32 33 ];
+        symbol [ y %tmp.27 308 32 33 ];
         %tmp.28 = lgetv %area;
-        symbol [ area %tmp.28 225 37 41 ];
+        symbol [ area %tmp.28 308 37 41 ];
         %tmp.29 = 1;
         %tmp.30 = agetv %tmp.28 %tmp.29;
         %tmp.31 = lgetv %area;
-        symbol [ area %tmp.31 225 47 51 ];
+        symbol [ area %tmp.31 308 47 51 ];
         %tmp.32 = 3;
         %tmp.33 = agetv %tmp.31 %tmp.32;
         %tmp.34 = add %tmp.30 %tmp.33;
         %tmp.35 = lte %tmp.27 %tmp.34;
         %tmp.36 = and %tmp.25 %tmp.35;
         push %tmp.36;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_32_225_53_end:
-        %tmp.37 = phi [%tmp.26 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_224_16_225_53_begin] [%tmp.36 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_32_225_53_true] [%tmp.37 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_225_32_225_53_end];
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_32_308_53_end:
+        %tmp.37 = phi [%tmp.26 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_307_16_308_53_begin] [%tmp.36 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_32_308_53_true] [%tmp.37 @_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_308_32_308_53_end];
         ret %tmp.37;
-_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_223_78_226_4_stop:
+_Users_merzavcev_WebstormProjects_garmin_test_app_source_View_mc_306_78_309_4_stop:
     }
 }
 [ @file = "/Users/merzavcev/WebstormProjects/garmin-test-app/source/View.mc"; @line = 1; ]
