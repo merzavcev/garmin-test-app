@@ -1,36 +1,37 @@
 import Toybox.Graphics;
 import Toybox.Lang;
+import Toybox.Communications;
+import Toybox.PersistedContent;
 import Toybox.System;
-import Toybox.Timer;
+import Toybox.Time;
 import Toybox.WatchUi;
 
-// Timer states
+// Request screen states
 enum {
     STATE_IDLE    = 0,
-    STATE_RUNNING = 1,
-    STATE_PAUSED  = 2,
-    STATE_STOPPED = 3
+    STATE_SENDING = 1,
+    STATE_SUCCESS = 2,
+    STATE_ERROR   = 3
 }
 
 class TimerView extends WatchUi.View {
 
     private var _state   as Number = STATE_IDLE;
-    private var _elapsed as Number = 0;   // accumulated ms at pause/stop
-    private var _startMs as Number = 0;   // System.getTimer() at last start/resume
-    private var _hwTimer as Timer.Timer;
+    private var _statusTitle as String = "Ready";
+    private var _statusDetail as String = "";
+    private var _selectedIndex as Number = 0;
+    private var _activePresetId as String or Null = null;
+    private var _presets as Array;
 
     private var _screenW as Number = 360;
     private var _screenH as Number = 360;
 
-    // Precomputed button areas [x, y, w, h]
-    // Stacked vertically so both fit inside round display
-    private var _btnSingle as Array = [0, 0, 0, 0]; // Start / Reset
-    private var _btnTop    as Array = [0, 0, 0, 0]; // Pause / Resume  (upper slot)
-    private var _btnBot    as Array = [0, 0, 0, 0]; // Stop             (lower slot)
+    // Button areas [x, y, w, h]
+    private var _btnAreas as Array = [];
 
     function initialize() {
         View.initialize();
-        _hwTimer = new Timer.Timer();
+        _presets = _defaultPresets();
     }
 
     function onLayout(dc as Dc) as Void {
@@ -40,21 +41,25 @@ class TimerView extends WatchUi.View {
     }
 
     private function _buildLayout() as Void {
-        // 180 px wide buttons are safe across the full height of a round 360x360 display.
-        // Two buttons stacked with 9 px gap, 22 px bottom margin.
         var btnH  = 46;
-        var btnW  = 180;
+        var btnW  = 250;
         var btnX  = (_screenW - btnW) / 2;
-        var gap   = 9;
-        var bot   = 22;
+        var gap   = 8;
+        var startY;
 
-        var topY  = _screenH - btnH * 2 - gap - bot;   // upper slot
-        var botY  = topY + btnH + gap;                  // lower slot
-        var midY  = topY + (btnH + gap) / 2;            // single button centred in zone
+        if (_presets.size() == 1) {
+            // Place a single action button in the visual center of the screen.
+            startY = (_screenH - btnH) / 2;
+        } else {
+            var bot   = 22;
+            var totalHeight = btnH * _presets.size() + gap * (_presets.size() - 1);
+            startY = _screenH - totalHeight - bot;
+        }
 
-        _btnSingle = [btnX, midY, btnW, btnH];
-        _btnTop    = [btnX, topY, btnW, btnH];
-        _btnBot    = [btnX, botY, btnW, btnH];
+        _btnAreas = [];
+        for (var i = 0; i < _presets.size(); i += 1) {
+            _btnAreas.add([btnX, startY + i * (btnH + gap), btnW, btnH]);
+        }
     }
 
     function onShow() as Void {
@@ -63,59 +68,30 @@ class TimerView extends WatchUi.View {
     function onUpdate(dc as Dc) as Void {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
-
-        var elapsed = _getCurrentElapsed();
-
-        // MM:SS — large
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(_statusColor(), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             _screenW / 2,
-            _screenH / 2 - 40,
-            Graphics.FONT_NUMBER_HOT,
-            _formatMajor(elapsed),
+            64,
+            Graphics.FONT_MEDIUM,
+            _statusTitle,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
 
-        // .mmm — medium, below MM:SS
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             _screenW / 2,
-            _screenH / 2 + 28,
-            Graphics.FONT_NUMBER_MEDIUM,
-            _formatMinor(elapsed),
+            104,
+            Graphics.FONT_XTINY,
+            _statusDetail,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
 
-        // Status label (PAUSED / STOPPED)
-        if (_state == STATE_PAUSED) {
-            _drawLabel(dc, "PAUSED");
-        } else if (_state == STATE_STOPPED) {
-            _drawLabel(dc, "STOPPED");
+        for (var i = 0; i < _presets.size(); i += 1) {
+            var preset = _presets[i];
+            var isSelected = (i == _selectedIndex);
+            var color = _colorForButton(i, isSelected);
+            _drawBtn(dc, _btnAreas[i], color, preset[:label]);
         }
-
-        // Buttons — stacked vertically
-        if (_state == STATE_IDLE) {
-            _drawBtn(dc, _btnSingle, 0x00AA00, "Start");
-        } else if (_state == STATE_RUNNING) {
-            _drawBtn(dc, _btnTop, 0xFF8800, "Pause");
-            _drawBtn(dc, _btnBot, 0xCC0000, "Stop");
-        } else if (_state == STATE_PAUSED) {
-            _drawBtn(dc, _btnTop, 0x00AA00, "Resume");
-            _drawBtn(dc, _btnBot, 0xCC0000, "Stop");
-        } else if (_state == STATE_STOPPED) {
-            _drawBtn(dc, _btnSingle, 0x0066CC, "Reset");
-        }
-    }
-
-    private function _drawLabel(dc as Dc, text as String) as Void {
-        dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
-            _screenW / 2,
-            _screenH / 2 + 66,
-            Graphics.FONT_SMALL,
-            text,
-            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-        );
     }
 
     private function _drawBtn(dc as Dc, area as Array, color as Number, label as String) as Void {
@@ -125,99 +101,206 @@ class TimerView extends WatchUi.View {
         dc.drawText(
             area[0] + area[2] / 2,
             area[1] + area[3] / 2,
-            Graphics.FONT_SMALL,
+            Graphics.FONT_XTINY,
             label,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
     }
 
-    private function _formatMajor(ms as Number) as String {
-        var totalSecs = ms / 1000;
-        var mins = totalSecs / 60;
-        var secs = totalSecs % 60;
-        return mins.format("%02d") + ":" + secs.format("%02d");
-    }
-
-    private function _formatMinor(ms as Number) as String {
-        return "." + (ms % 1000).format("%03d");
-    }
-
-    private function _getCurrentElapsed() as Number {
-        if (_state == STATE_RUNNING) {
-            return _elapsed + (System.getTimer() - _startMs);
+    private function _colorForButton(index as Number, isSelected as Boolean) as Number {
+        var base = 0x2A5DCC;
+        if (index == 1) {
+            base = 0x2B8A3E;
+        } else if (index == 2) {
+            base = 0x8A5B00;
         }
-        return _elapsed;
-    }
 
-    function onHide() as Void {
-        _hwTimer.stop();
-    }
-
-    // ---- State transitions ----
-
-    function doStart() as Void {
-        _elapsed = 0;
-        _startMs = System.getTimer();
-        _state   = STATE_RUNNING;
-        _hwTimer.start(method(:onTick), 50, true);
-        WatchUi.requestUpdate();
-    }
-
-    function doPause() as Void {
-        _elapsed += System.getTimer() - _startMs;
-        _state    = STATE_PAUSED;
-        _hwTimer.stop();
-        WatchUi.requestUpdate();
-    }
-
-    function doResume() as Void {
-        _startMs = System.getTimer();
-        _state   = STATE_RUNNING;
-        _hwTimer.start(method(:onTick), 50, true);
-        WatchUi.requestUpdate();
-    }
-
-    function doStop() as Void {
-        if (_state == STATE_RUNNING) {
-            _elapsed += System.getTimer() - _startMs;
+        if (_state == STATE_SENDING) {
+            if (_activePresetId != null && _presets[index][:id] == _activePresetId) {
+                return 0x666666;
+            }
+            return 0x2C2C2C;
         }
-        _state = STATE_STOPPED;
-        _hwTimer.stop();
+
+        if (isSelected) {
+            return base;
+        }
+        return 0x1F1F1F;
+    }
+
+    private function _statusColor() as Number {
+        if (_state == STATE_SUCCESS) {
+            return 0x3CD070;
+        }
+        if (_state == STATE_ERROR) {
+            return 0xFF5F5F;
+        }
+        if (_state == STATE_SENDING) {
+            return 0xFFD166;
+        }
+        return Graphics.COLOR_WHITE;
+    }
+
+    private function _defaultPresets() as Array {
+        return [
+            {
+                :id      => "yandex_lavka",
+                :label   => "Яндекс Лавка",
+                :method  => Communications.HTTP_REQUEST_METHOD_POST,
+                :url     => SecretsConfig.getUrl(),
+                :headers => _baseHeaders(),
+                :body    => _baseBody()
+            }
+        ];
+    }
+
+    private function _baseHeaders() as Dictionary {
+        return SecretsConfig.getHeaders();
+    }
+
+    private function _baseBody() as Dictionary {
+        return SecretsConfig.getBody();
+    }
+
+    function moveSelection(delta as Number) as Void {
+        if (_state == STATE_SENDING) {
+            return;
+        }
+
+        var next = _selectedIndex + delta;
+        if (next < 0) {
+            next = _presets.size() - 1;
+        } else if (next >= _presets.size()) {
+            next = 0;
+        }
+
+        _selectedIndex = next;
+        _statusTitle = "Ready";
+        _statusDetail = "";
         WatchUi.requestUpdate();
     }
 
-    function doReset() as Void {
-        _elapsed = 0;
-        _state   = STATE_IDLE;
-        WatchUi.requestUpdate();
+    function activateSelected() as Void {
+        if (_state == STATE_SENDING) {
+            return;
+        }
+        _startRequest(_selectedIndex);
     }
-
-    function onTick() as Void {
-        WatchUi.requestUpdate();
-    }
-
-    // ---- Input dispatching ----
 
     function handleTap(x as Number, y as Number) as Void {
-        if (_state == STATE_IDLE) {
-            if (_hit(_btnSingle, x, y)) { doStart(); }
-        } else if (_state == STATE_RUNNING) {
-            if (_hit(_btnTop, x, y)) { doPause(); }
-            if (_hit(_btnBot, x, y)) { doStop();  }
-        } else if (_state == STATE_PAUSED) {
-            if (_hit(_btnTop, x, y)) { doResume(); }
-            if (_hit(_btnBot, x, y)) { doStop();   }
-        } else if (_state == STATE_STOPPED) {
-            if (_hit(_btnSingle, x, y)) { doReset(); }
+        if (_state == STATE_SENDING) {
+            return;
+        }
+
+        for (var i = 0; i < _btnAreas.size(); i += 1) {
+            if (_hit(_btnAreas[i], x, y)) {
+                _selectedIndex = i;
+                _startRequest(i);
+                return;
+            }
         }
     }
 
-    // Physical START/ENTER button cycles through main actions
-    function handleMainKey() as Void {
-        if      (_state == STATE_IDLE)    { doStart();  }
-        else if (_state == STATE_RUNNING) { doPause();  }
-        else if (_state == STATE_PAUSED)  { doResume(); }
-        else if (_state == STATE_STOPPED) { doReset();  }
+    function _startRequest(index as Number) as Void {
+        var preset = _presets[index];
+
+        _activePresetId = preset[:id];
+        _state = STATE_SENDING;
+        _statusTitle = "Sending...";
+        _statusDetail = preset[:label];
+        WatchUi.requestUpdate();
+
+        var options = {
+            :method => preset[:method],
+            :headers => preset[:headers],
+            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
+            :context => preset
+        };
+
+        System.println("[PASS] send id=" + preset[:id] + " url=" + preset[:url]);
+        try {
+            Communications.makeWebRequest(
+                preset[:url],
+                _buildRequestBody(preset),
+                options,
+                method(:onWebResponse)
+            );
+        } catch (ex) {
+            _state = STATE_ERROR;
+            _activePresetId = null;
+            _statusTitle = "Error";
+            _statusDetail = "Request failed";
+            System.println("[PASS] makeWebRequest exception: " + ex.toString());
+            WatchUi.requestUpdate();
+        }
+    }
+
+    function onWebResponse(
+        responseCode as Number,
+        data as Dictionary or String or PersistedContent.Iterator or Null,
+        context as Object
+    ) as Void {
+        var presetLabel = "Request";
+        if (context != null && context has :label) {
+            presetLabel = context[:label];
+        }
+
+        System.println("[PASS] response code=" + responseCode.format("%d"));
+
+        if (responseCode >= 200 && responseCode < 300 && _isApiSuccess(data)) {
+            _state = STATE_SUCCESS;
+            _statusTitle = "Success";
+            _statusDetail = presetLabel + " sent";
+        } else {
+            _state = STATE_ERROR;
+            _statusTitle = "Error";
+            _statusDetail = _normalizeError(responseCode, data);
+        }
+
+        _activePresetId = null;
+        WatchUi.requestUpdate();
+    }
+
+    private function _isApiSuccess(data) as Boolean {
+        if (data == null) {
+            return true;
+        }
+        if (data instanceof Dictionary) {
+            if (data has :ok && !data[:ok]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function _buildRequestBody(preset as Dictionary) as Dictionary {
+        var body = {
+            "arriveDate" => Time.now().value(),
+            "passes" => preset[:body]["passes"],
+            "type" => preset[:body]["type"],
+            "subType" => preset[:body]["subType"]
+        };
+        return body;
+    }
+
+    private function _normalizeError(responseCode as Number, data) as String {
+        if (responseCode == 401 || responseCode == 403) {
+            return "Auth expired";
+        }
+        if (responseCode >= 500) {
+            return "Server error";
+        }
+        if (responseCode <= 0) {
+            return "No connection";
+        }
+
+        if (data instanceof Dictionary) {
+            if (data has :error) {
+                return data[:error].toString();
+            }
+        }
+
+        return "HTTP " + responseCode.format("%d");
     }
 
     private function _hit(area as Array, x as Number, y as Number) as Boolean {

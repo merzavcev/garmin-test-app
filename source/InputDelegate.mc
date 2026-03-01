@@ -17,8 +17,19 @@ class TimerDelegate extends WatchUi.InputDelegate {
     }
 
     function onKey(evt as WatchUi.KeyEvent) as Boolean {
-        if (evt.getKey() == WatchUi.KEY_ENTER) {
-            _view.handleMainKey();
+        var key = evt.getKey();
+        if (key == WatchUi.KEY_ENTER) {
+            _view.activateSelected();
+            return true;
+        }
+
+        if (key == WatchUi.KEY_UP) {
+            _view.moveSelection(-1);
+            return true;
+        }
+
+        if (key == WatchUi.KEY_DOWN) {
+            _view.moveSelection(1);
             return true;
         }
         return false;
